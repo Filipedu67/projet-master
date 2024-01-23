@@ -1,5 +1,4 @@
 from load_data import load_data
-from preprocess_data import preprocess_data
 from analyse_data import analyse
 
 file_path = 'data/cities/data-paris.json' # Update this to the path of your JSON file
