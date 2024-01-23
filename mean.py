@@ -1,6 +1,6 @@
 from load_data import load_data
 from typing import Dict
-import math 
+import math, sys
 
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
@@ -46,5 +46,15 @@ def evaluate_mean(city_df) -> None:
 
 
 if __name__ == '__main__':
+    if (len(sys.argv) < 2):
+        print(f'Usage: python3 {sys.argv[0]} <city_name>')
+        sys.exit(1)
+
+    city = sys.argv[1]
+
+    if not city in cities:
+        print(f"City not supported, please use one of the following: {', '.join(cities)}") 
+        sys.exit(1)
+
     means = get_city_dataframes()
-    evaluate_mean(means['strasbourg'])
+    evaluate_mean(means[city])
