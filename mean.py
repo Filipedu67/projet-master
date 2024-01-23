@@ -1,5 +1,4 @@
 from load_data import load_data
-from typing import Dict
 import math, sys
 
 from sklearn.model_selection import train_test_split
@@ -28,7 +27,7 @@ def get_city_dataframes():
 def evaluate_mean(city_df) -> None:
     X, y = city_df['surface'], city_df['price']
     # seperating the data into 80/20 train/test sets
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.8, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
     
     # calculation the mean on the train set
     mean = (y_train / X_train).mean()
