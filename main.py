@@ -7,11 +7,6 @@ file_path = 'data/cities/data-paris.json' # Update this to the path of your JSON
 # Load the data
 df = load_data(file_path)
 
-
-
-# Flatten the data if necessary
-# df_flattened = flatten_data(df)
-
 # Preprocess the data
 df_preprocessed = preprocess_data(df)
 
