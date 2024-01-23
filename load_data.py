@@ -1,10 +1,3 @@
-# import pandas as pd
-#
-#
-# def load_data(file_path):
-#     # Read JSON file into a DataFrame
-#     return pd.read_json(file_path)
-
 import json
 import pandas as pd
 
@@ -22,9 +15,6 @@ def load_data(file_path):
 
             # If the JSON data is nested, you might need to normalize it:
             df = pd.json_normalize(data)
-
-            # Print the first few rows of the DataFrame
-            print(df.head())
             return df
 
     except json.JSONDecodeError as err:
