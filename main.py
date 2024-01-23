@@ -1,15 +1,31 @@
+import sys
+
 from load_data import load_data
 from analyse_data import analyse
+from preprocess.preprocess import preprocess_data
 
-file_path = 'data/cities/data-paris.json' # Update this to the path of your JSON file
+city = 'paris'
+file_path = f'data/data-{city}.json'  # Update this to the path of your JSON file
 
-# Load the data
-df = load_data(file_path)
 
-# Show the analysis of the data
-analyse(df)
+def main():
+    # To get the city name from command line, uncomment the following code
+    # if len(sys.argv) < 2:
+    #     print(f'Usage: python3 {sys.argv[0]} <city_name>')
+    #     sys.exit(1)
+    #
+    # city = sys.argv[1]
 
-# Preprocess the data
-# df_preprocessed = preprocess_data(df)
+    # file_path = f"data/data-{city}.json"
 
-# df_preprocessed is now ready for further analysis or modeling
+    # Load the data
+    df = load_data(file_path)
+
+    # Show the analysis of the data
+    analyse(df)
+
+    # TODO: Preprocess the data
+
+
+if __name__ == "__main__":
+    main()

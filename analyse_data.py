@@ -26,12 +26,6 @@ def analyse(df) -> None:
     plt.title('Surface Distribution')
     plt.show()
 
-    # 4. Correlation Analysis
-    # Heatmap of correlations
-    sns.heatmap(df.corr(), annot=True, cmap='coolwarm')
-    plt.title('Correlation Heatmap')
-    plt.show()
-
     # 5. Category Analysis
     # Boxplot for price by number of rooms
     sns.boxplot(x='room', y='price', data=df)
