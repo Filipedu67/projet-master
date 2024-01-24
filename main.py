@@ -5,7 +5,6 @@ from analyse_data import analyse
 from preprocess.preprocess import preprocess_data
 
 city = 'paris'
-file_path = f'data/data-{city}.json'  # Update this to the path of your JSON file
 
 
 def main():
@@ -16,15 +15,17 @@ def main():
     #
     # city = sys.argv[1]
 
-    # file_path = f"data/data-{city}.json"
+    file_path = f"data/data-{city}.json"
 
     # Load the data
     df = load_data(file_path)
 
-    # Show the analysis of the data
-    analyse(df)
+    cleaned_df = preprocess_data(df, city)
 
-    # TODO: Preprocess the data
+    # Show the analysis of the data
+    analyse(cleaned_df)
+
+    # df_preprocessed is now ready for further analysis or modeling
 
 
 if __name__ == "__main__":
