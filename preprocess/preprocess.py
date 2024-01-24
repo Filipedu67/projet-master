@@ -35,6 +35,8 @@ def preprocess_data(df: pandas.DataFrame, city: str) -> pandas.DataFrame:
         print("Invalid city")
         return None
 
+    # Starting data clean up
+
     df = filter_columns(df, COLUMNS_TO_KEEP)
 
     df = clean_location_data(df, lat_min=lat_min, lat_max=lat_max, lon_min=lon_min, lon_max=lon_max)
@@ -42,6 +44,8 @@ def preprocess_data(df: pandas.DataFrame, city: str) -> pandas.DataFrame:
     df = handle_missing_values(df)
 
     print_rows_with_nulls(df)
+
+    # end of cleaning up the data
 
     return df
 
