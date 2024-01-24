@@ -15,8 +15,8 @@ STRA_LON_MAX = 7.722536
 
 # Define the columns you want to keep
 COLUMNS_TO_KEEP = ['price', 'elevator', 'location.lat', 'location.lon',
-                   'surface', 'bedroom', 'createdAt', 'description', 'floor',
-                   'furnished', 'pricePerMeter', 'room', 'title']  # Add other column names as needed
+                   'surface', 'bedroom', 'floor',
+                   'furnished', 'room']  # Add other column names as needed
 
 
 def preprocess_data(df: pandas.DataFrame, city: str) -> pandas.DataFrame:
@@ -37,6 +37,8 @@ def preprocess_data(df: pandas.DataFrame, city: str) -> pandas.DataFrame:
 
     # Starting data clean up
 
+    df = convert_bool_to_int(df)
+
     df = filter_columns(df, COLUMNS_TO_KEEP)
 
     df = clean_location_data(df, lat_min=lat_min, lat_max=lat_max, lon_min=lon_min, lon_max=lon_max)
@@ -46,6 +48,16 @@ def preprocess_data(df: pandas.DataFrame, city: str) -> pandas.DataFrame:
     print_rows_with_nulls(df)
 
     # end of cleaning up the data
+
+    return df
+
+
+def convert_bool_to_int(df: pandas.DataFrame) -> pandas.DataFrame:
+    df["furnished"] = df["furnished"].astype(int)
+
+    df["expired"] = df["expired"].astype(int)
+
+    df["elevator"] = df["elevator"].astype(int)
 
     return df
 

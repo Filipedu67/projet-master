@@ -3,8 +3,14 @@ import sys
 from load_data import load_data
 from analyse_data import analyse
 from preprocess.preprocess import preprocess_data
+from models.gbr import train_model
+from models.gbr import predict_price
 
+# dataset to use
 city = 'paris'
+
+# Target column to do the predictions
+TARGET_COLUMN = 'price'
 
 
 def main():
@@ -23,9 +29,26 @@ def main():
     cleaned_df = preprocess_data(df, city)
 
     # Show the analysis of the data
-    analyse(cleaned_df)
+    # TODO: Add option to turn this on or off
+    # analyse(cleaned_df)
 
-    # df_preprocessed is now ready for further analysis or modeling
+    # cleaned_df is now ready to be trained
+    model = train_model(cleaned_df)
+
+    # Example usage:
+    input_attributes = {
+        'surface': 50,
+        'location.lat': 48.8566,
+        'location.lon': 2.4522,
+        'bedroom': 1,
+        'floor': 10,
+        'furnished': 1,
+        'room': 2,
+        'elevator': 0
+    }
+
+    predicted_price = predict_price(model, input_attributes)
+    print(f"The predicted price of the apartment is: {predicted_price}")
 
 
 if __name__ == "__main__":
