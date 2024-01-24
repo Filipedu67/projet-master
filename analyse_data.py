@@ -1,9 +1,10 @@
 import seaborn as sns
 import matplotlib.pyplot as plt
 import plotly.express as px
+import pandas
 
 
-def analyse(df) -> None:
+def analyse(df: pandas.DataFrame) -> None:
     # 1. Data Overview
     print(df.info())
     print(df.describe())
