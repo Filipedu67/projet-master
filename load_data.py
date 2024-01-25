@@ -28,9 +28,9 @@ def load_data(file_path):
 
             df['description'] = df['description'].astype(str)
 
-            df['createdAt'] = pd.to_datetime(df['createdAt'], errors='coerce')
+            df['createdAt'] = pd.to_datetime(df['createdAt'], errors='coerce', utc=True)
 
-            df['expirte'] = df['expired'].astype(bool)
+            df['expired'] = df['expired'].astype(bool)
 
             df['floor'] = pd.to_numeric(df['floor'], errors='coerce')
 
