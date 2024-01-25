@@ -10,7 +10,7 @@ from models.gbr import predict_price
 from preprocess.preprocess import get_extra_attributes
 
 # dataset to use
-city = 'lyon'
+city = 'paris'
 
 
 def main():
