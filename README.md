@@ -57,6 +57,27 @@ Supported cities are
 ``
 -p is an optional argument to use when you want to use a specific json file to estimate the price of a house. Follow -p with the path to the json file.
 
+# Tools
+
+## Mean
+
+Calculates the mean of the data without using any model.
+
+### Usage
+
+```bash
+python3 mean.py <city_name>
+```
+
+## Reduce File
+
+Reduces the size of the data file by only keeping the given number of lines (for testing purposes).
+
+### Usage
+
+```bash
+python3 reduce_file.py <element_count> <input_file_path> <output_file_name>
+```
 
 # License
 

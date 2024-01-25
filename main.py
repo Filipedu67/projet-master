@@ -1,8 +1,6 @@
 import json
 import sys
 
-import numpy as np
-
 from load_data import load_data
 from analyse_data import analyse
 from preprocess.preprocess import preprocess_data
