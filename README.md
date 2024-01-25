@@ -32,6 +32,8 @@ python3 main.py <city_name> [-a] [-t <model_name>] [-p <path_to_json_file>]
 ```
 
 The city name is the name of the city where you want to estimate the price of a house. 
+
+
 Supported cities are 
 ``
 [
@@ -47,15 +49,24 @@ Supported cities are
     'toulouse'
 ]
 ``
+
+
 -a is an optional argument to use when you want the application to show the analysis of the data.
+
+
 -t is an optional argument to use when you want to use a specific model. Supported models are
+
 ``
 [
     'gbr',
     'random_forest
 ]
 ``
+
+
 -p is an optional argument to use when you want to use a specific json file to estimate the price of a house. Follow -p with the path to the json file.
+
+
 
 # Tools
 
