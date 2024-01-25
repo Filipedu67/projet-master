@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 
 
-def train_model(data: pd.DataFrame):
+def rf_train_model(data: pd.DataFrame):
     """
     Train a Random Forest Regressor model on the given dataset.
 

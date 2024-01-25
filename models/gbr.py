@@ -7,7 +7,7 @@ from sklearn.model_selection import KFold
 import numpy as np
 
 
-def train_model(data: pd.DataFrame):
+def gbr_train_model(data: pd.DataFrame):
     """
     Train a Gradient Boosting Regressor model on the given dataset.
 
@@ -15,9 +15,7 @@ def train_model(data: pd.DataFrame):
     :return: Trained model
     """
 
-    # Preprocessing Steps:
-
-    # 3. Encode categorical variables using Label Encoder
+    # Encode categorical variables using Label Encoder
     label_encoder = LabelEncoder()
     for column in data.columns:
         if data[column].dtype == 'object':
@@ -51,7 +49,7 @@ def train_model(data: pd.DataFrame):
     return model
 
 
-def print_model_with_kfold(data: pd.DataFrame, n_splits=30):
+def gbr_print_model_with_kfold(data: pd.DataFrame, n_splits=30):
     """
     Train a Gradient Boosting Regressor model using K-Fold Cross-Validation.
 
@@ -101,7 +99,7 @@ def print_model_with_kfold(data: pd.DataFrame, n_splits=30):
 
 
 
-def predict_price(model, input_attributes):
+def gbr_predict_price(model, input_attributes):
     """
     Predict the house price using the trained model and input attributes.
 
