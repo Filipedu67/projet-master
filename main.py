@@ -10,10 +10,7 @@ from models.gbr import predict_price
 from preprocess.preprocess import get_extra_attributes
 
 # dataset to use
-city = 'nantes'
-
-# Target column to do the predictions
-TARGET_COLUMN = 'price'
+city = 'lyon'
 
 
 def main():

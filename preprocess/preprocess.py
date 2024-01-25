@@ -32,10 +32,40 @@ BORD_LAT_MAX = 44.948455
 BORD_LON_MIN = -0.699015
 BORD_LON_MAX = -0.467902
 
+# Define the bounds for Lille (approximate values)
+LILLE_LAT_MIN = 50.594340
+LILLE_LAT_MAX = 50.677521
+LILLE_LON_MIN = 2.952042
+LILLE_LON_MAX = 3.153229
+
+# # Define the bounds for Marseille (approximate values)
+MARS_LAT_MIN = 43.155416
+MARS_LAT_MAX = 43.414335
+MARS_LON_MIN = 5.221784
+MARS_LON_MAX = 5.559875
+
+# # Define the bounds for Montpellier (approximate values)
+MONT_LAT_MIN = 43.540333
+MONT_LAT_MAX = 43.673958
+MONT_LON_MIN = 3.769510
+MONT_LON_MAX = 3.984958
+
+# # Define the bounds for Nice (approximate values)
+NICE_LAT_MIN = 43.630287
+NICE_LAT_MAX = 43.722495
+NICE_LON_MIN = 7.148702
+NICE_LON_MAX = 7.332597
+
+# Define the bounds for Toulouse (approximate values)
+TOUL_LAT_MIN = 43.490621
+TOUL_LAT_MAX = 43.698439
+TOUL_LON_MIN = 1.324922
+TOUL_LON_MAX = 1.536952
+
 # Define the columns you want to keep
-COLUMNS_TO_KEEP = ['price', 'elevator', 'location.lat', 'location.lon',
-                   'surface', 'bedroom', 'floor',
-                   'furnished', 'room']  # Add other column names as needed
+# IMPORTANT: When you add new columns, remember to handle their value type (conversion to int, etc.)
+COLUMNS_TO_KEEP = ['price', 'elevator', 'location.lat', 'location.lon', 'surface', 'bedroom', 'floor',
+                   'furnished', 'room']
 
 
 def preprocess_data(df: pandas.DataFrame, city: str) -> pandas.DataFrame:
@@ -64,8 +94,32 @@ def preprocess_data(df: pandas.DataFrame, city: str) -> pandas.DataFrame:
         lon_min = BORD_LON_MIN
         lat_max = BORD_LAT_MAX
         lon_max = BORD_LON_MAX
+    elif city == "lille":
+        lat_min = LILLE_LAT_MIN
+        lon_min = LILLE_LON_MIN
+        lat_max = LILLE_LAT_MAX
+        lon_max = LILLE_LON_MAX
+    elif city == "marseille":
+        lat_min = MARS_LAT_MIN
+        lon_min = MARS_LON_MIN
+        lat_max = MARS_LAT_MAX
+        lon_max = MARS_LON_MAX
+    elif city == "montpellier":
+        lat_min = MONT_LAT_MIN
+        lon_min = MONT_LON_MIN
+        lat_max = MONT_LAT_MAX
+        lon_max = MONT_LON_MAX
+    elif city == "nice":
+        lat_min = NICE_LAT_MIN
+        lon_min = NICE_LON_MIN
+        lat_max = NICE_LAT_MAX
+        lon_max = NICE_LON_MAX
+    elif city == "toulouse":
+        lat_min = TOUL_LAT_MIN
+        lon_min = TOUL_LON_MIN
+        lat_max = TOUL_LAT_MAX
+        lon_max = TOUL_LON_MAX
     else:
-        # TODO: Add more cities
         print("Invalid city")
         return None
 
@@ -186,6 +240,51 @@ def get_important_places(city):
             'bordeauxAirport': (44.8286, -0.7153),
             'pontDePierre': (44.8378, -0.5612),
             'citéDuVin': (44.8627, -0.5504),
+        }
+    elif city == 'lille':
+        return {
+            'lilleFlandresStation': (50.6366, 3.0695),
+            'grandPlaceLille': (50.6372, 3.0633),
+            'lilleEuropeStation': (50.6394, 3.0755),
+            'palaisDesBeauxArts': (50.6322, 3.0603),
+            'lilleZoo': (50.6325, 3.0422),
+            'lilleAirport': (50.5617, 3.0894),
+        }
+    elif city == 'marseille':
+        return {
+            'oldPortOfMarseille': (43.2954, 5.3745),
+            'notreDameDeLaGarde': (43.2849, 5.3698),
+            'stadeVelodrome': (43.2706, 5.3959),
+            'marseilleSaintCharlesStation': (43.3027, 5.3806),
+            'calanquesNationalPark': (43.2136, 5.4534),
+            'marseilleProvenceAirport': (43.4393, 5.2214),
+        }
+    elif city == 'montpellier':
+        return {
+            'placeDeLaComedie': (43.6085, 3.8795),
+            'montpellierSaintRochStation': (43.6045, 3.8802),
+            'montpellierMediterraneeAirport': (43.5762, 3.9631),
+            'fabreMuseum': (43.6114, 3.8773),
+            'aqueductSaintClement': (43.6156, 3.8694),
+            'montpellierZoo': (43.6391, 3.8739),
+        }
+    elif city == 'nice':
+        return {
+            'promenadeDesAnglais': (43.6952, 7.2656),
+            'niceVilleStation': (43.7045, 7.2619),
+            'castleHillOfNice': (43.6951, 7.2798),
+            'coursSaleyaMarket': (43.6950, 7.2754),
+            'niceCoteDAzurAirport': (43.6653, 7.2150),
+            'matisseMuseum': (43.7192, 7.2763),
+        }
+    elif city == 'toulouse':
+        return {
+            'capitoleDeToulouse': (43.6045, 1.4435),
+            'toulouseMatabiauStation': (43.6111, 1.4544),
+            'citéDeLEspace': (43.5861, 1.4904),
+            'basilicaOfSaintSernin': (43.6082, 1.4429),
+            'toulouseBlagnacAirport': (43.6293, 1.3636),
+            'garonneRiverfront': (43.5985, 1.4430),
         }
     else:
         print('invalid city')
