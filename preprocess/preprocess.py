@@ -93,7 +93,7 @@ def handle_missing_values(df: pandas.DataFrame) -> pandas.DataFrame:
     for column in df.columns:
         # Check if the column is numeric (int or float)
         if pd.api.types.is_numeric_dtype(df[column]):
-            df[column].fillna(df[column].mean(), inplace=True)
+            df[column] = df[column].fillna(df[column].mean())
         # Check if the column is of object type (e.g., strings)
         elif pd.api.types.is_object_dtype(df[column]):
             df[column].fillna('', inplace=True)
