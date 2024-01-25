@@ -29,6 +29,7 @@ supported_cities = [
     'toulouse'
 ]
 
+# TODO: Add more models here
 supported_models = [
     'gbr',
     'random_forest'
