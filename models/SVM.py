@@ -23,7 +23,7 @@ def train_model(data: pd.DataFrame):
     y = data['price']
 
     # Split the data into training and testing sets
-    x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.2, shuffle=True, stratify=labels)
+    x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.2, shuffle=True)
 
     # Model Training:
     classifier = SVC()
@@ -39,7 +39,7 @@ def train_model(data: pd.DataFrame):
     # Model Evaluation:
     y_prediction = best_estimator.predict(x_test)
 
-    accuracy_score = accuracy_score(y_prediction, y_test)
+    acc_score = accuracy_score(y_prediction, y_test)
     mse = mean_squared_error(y_test, y_prediction)
     rmse = np.sqrt(mse)
     mae = mean_absolute_error(y_test, y_prediction)
@@ -51,6 +51,6 @@ def train_model(data: pd.DataFrame):
     print(f"Mean Squared Error (MSE): {mse}")
     print(f"Root Mean Squared Error (RMSE): {rmse}")
     print(f"R² score: {r2}")
-    print(f"Accuracy score: {accuracy_score}")
+    print(f"Accuracy score: {acc_score }")
 
     return best_estimator

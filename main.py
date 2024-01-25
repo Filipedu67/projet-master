@@ -3,10 +3,10 @@ import sys
 from load_data import load_data
 from analyse_data import analyse
 from preprocess.preprocess import preprocess_data
-from models.gbr import train_model
-from models.gbr import print_model_with_kfold
+from models.SVM import train_model
+# from models.gbr import print_model_with_kfold
 # from models.random_forest import train_model
-from models.gbr import predict_price
+from predict import predict_price
 from preprocess.preprocess import get_extra_attributes
 
 # dataset to use
@@ -21,7 +21,7 @@ def main():
     #
     # city = sys.argv[1]
 
-    file_path = f"data/data-{city}.json"
+    file_path = f"data/cities/data-{city}.json"
 
     # Load the data
     df = load_data(file_path)
@@ -36,7 +36,7 @@ def main():
     model = train_model(cleaned_df)
 
     # Uncomment this to use KFold Cross Validation to calculate mean, precision, etc.
-    print_model_with_kfold(cleaned_df, 30)
+    # print_model_with_kfold(cleaned_df, 30)
 
     # Example usage:
     input_attributes = {
