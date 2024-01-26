@@ -92,6 +92,32 @@ Reduces the size of the data file by only keeping the given number of lines (for
 python3 reduce_file.py <element_count> <input_file_path> <output_file_name>
 ```
 
+## API
+
+A Flask API to use the models.
+
+### Usage
+
+```bash
+python3 api.py
+```
+
+Send post requests to the given URL/predict with the following body example:
+    
+    ```json
+      {
+        "city":"paris",
+        "surface": 50,
+        "location.lat": 48.8566,
+        "location.lon": 2.4522,
+        "bedroom": 1,
+        "floor": 10,
+        "furnished": 1,
+        "room": 2,
+        "elevator": 0
+    }
+    ```
+
 # Adding new models
 
 When adding new AI models, you can update the requirements.txt file by running the following command.
