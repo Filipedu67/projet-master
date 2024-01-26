@@ -15,6 +15,9 @@ from models.nn import nn_print_model_with_kfold
 from models.random_forest import rf_train_model
 from models.random_forest import rf_print_model_with_kfold
 
+from models.knn import knn_train_model
+from models.knn import knn_print_model_with_kfold
+
 from preprocess.preprocess import get_extra_attributes
 
 # dataset to use
@@ -38,7 +41,8 @@ supported_cities = [
 supported_models = [
     'gbr',
     'random_forest',
-    'nn'
+    'nn',
+    'knn'
 ]
 
 
@@ -152,6 +156,8 @@ def main():
         model = rf_train_model(cleaned_df)
     elif model_name == 'nn':
         model = nn_train_model(cleaned_df)
+    elif model_name == 'knn':
+        model = knn_train_model(cleaned_df)
     else:
         print(f"Model not supported, please use one of the following: {', '.join(supported_models)}")
         sys.exit(1)
@@ -169,6 +175,8 @@ def main():
             rf_print_model_with_kfold(cleaned_df, n_splits)
         elif model_name == 'nn':
             nn_print_model_with_kfold(cleaned_df, n_splits)
+        elif model_name == 'knn':
+            knn_print_model_with_kfold(cleaned_df, n_splits)
         else:
             print(f"Model not supported, please use one of the following: {', '.join(supported_models)}")
             sys.exit(1)
