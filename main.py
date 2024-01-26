@@ -12,7 +12,7 @@ from models.nn import nn_train_model
 from models.nn import nn_print_model_with_kfold
 
 from models.random_forest import rf_train_model
-from models.gbr import gbr_predict_price
+from models.gbr import general_predict_price
 from preprocess.preprocess import get_extra_attributes
 
 # dataset to use
@@ -154,7 +154,9 @@ def main():
             input_attributes = prediction
             # Get additional attributes (distances to important places)
             input_attributes = get_extra_attributes(input_attributes, city)
-            predicted_price = gbr_predict_price(model, input_attributes)
+            # The prediction is general to all models
+            # TODO: Move the method to another file
+            predicted_price = general_predict_price(model, input_attributes)
             print(f"{i}. The predicted price of the apartment is: {predicted_price}")
             i += 1
         print('#############################################' + '\n')

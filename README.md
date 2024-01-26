@@ -90,6 +90,19 @@ Reduces the size of the data file by only keeping the given number of lines (for
 python3 reduce_file.py <element_count> <input_file_path> <output_file_name>
 ```
 
+# Adding new models
+
+When adding new AI models, you can update the requirements.txt file by running the following command.
+
+```bash
+pip install pipreqs
+pipreqs . --force
+```
+
+This will update the requirements.txt file with the new dependencies.
+
+Then update the supported_models list in the main.py file with the name of the new model and add it to the if statement in the main function.
+
 # License
 
 [MIT](https://choosealicense.com/licenses/mit/)

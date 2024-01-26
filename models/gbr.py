@@ -99,7 +99,7 @@ def gbr_print_model_with_kfold(data: pd.DataFrame, n_splits=30):
 
 
 
-def gbr_predict_price(model, input_attributes):
+def general_predict_price(model, input_attributes):
     """
     Predict the house price using the trained model and input attributes.
 
