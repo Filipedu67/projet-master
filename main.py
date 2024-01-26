@@ -4,8 +4,13 @@ import sys
 from load_data import load_data
 from analyse_data import analyse
 from preprocess.preprocess import preprocess_data
+
 from models.gbr import gbr_train_model
 from models.gbr import gbr_print_model_with_kfold
+
+from models.nn import nn_train_model
+from models.nn import nn_print_model_with_kfold
+
 from models.random_forest import rf_train_model
 from models.gbr import gbr_predict_price
 from preprocess.preprocess import get_extra_attributes
@@ -30,7 +35,8 @@ supported_cities = [
 # TODO: Add more models here
 supported_models = [
     'gbr',
-    'random_forest'
+    'random_forest',
+    'nn'
 ]
 
 
@@ -125,6 +131,8 @@ def main():
         model = gbr_train_model(cleaned_df)
     elif model_name == 'random_forest':
         model = rf_train_model(cleaned_df)
+    elif model_name == 'nn':
+        model = nn_train_model(cleaned_df)
     else:
         print(f"Model not supported, please use one of the following: {', '.join(supported_models)}")
         sys.exit(1)
