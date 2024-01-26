@@ -3,6 +3,7 @@ import sys
 
 from load_data import load_data
 from analyse_data import analyse
+from models.predictor import general_predict_price
 from preprocess.preprocess import preprocess_data
 
 from models.gbr import gbr_train_model
@@ -12,7 +13,8 @@ from models.nn import nn_train_model
 from models.nn import nn_print_model_with_kfold
 
 from models.random_forest import rf_train_model
-from models.gbr import general_predict_price
+from models.random_forest import rf_print_model_with_kfold
+
 from preprocess.preprocess import get_extra_attributes
 
 # dataset to use
@@ -44,7 +46,8 @@ def main():
     # To get the city name from command line, use the following code
     # if not, comment it out and use the city variable above
     if len(sys.argv) < 2:
-        print(f'Usage: python3 {sys.argv[0]} <city_name> [-a] [-t <model_name>] [-p <path_to_json_file>]')
+        print(f'Usage: '
+              f'python3 {sys.argv[0]} <city_name> [-a] [-t <model_name>] [-p <path_to_json_file>] [-c <n_splits>]')
         print(f'Example: python3 {sys.argv[0]} paris -a -t gbr -p prediction/prediction_data.json')
         sys.exit(1)
 
@@ -91,6 +94,22 @@ def main():
                 sys.exit(1)
         except IndexError:
             print(f"Please specify a path to a json file after -p")
+            sys.exit(1)
+
+    # If there is an argument -c in the command line it must contain a number after it (greater than 0), this is
+    # the number of KFold Cross Validation splits (the command -c is optional)
+    n_splits = -1
+    if '-c' in sys.argv:
+        try:
+            n_splits = int(sys.argv[sys.argv.index('-c') + 1])
+            if n_splits <= 0:
+                print(f"Please specify a number greater than 0 after -c")
+                sys.exit(1)
+        except IndexError:
+            print(f"Please specify a number after -c")
+            sys.exit(1)
+        except ValueError:
+            print(f"Please specify a number after -c")
             sys.exit(1)
 
     # Path to the data file
@@ -140,10 +159,20 @@ def main():
     print(f"Trained model: {model_name}")
     print('#############################################' + '\n')
 
-    # Uncomment this to use KFold Cross Validation to calculate mean, precision, etc.
-    # print(f"Calculating mean, precision, etc. using KFold Cross Validation...")
-    # gbr_print_model_with_kfold(cleaned_df, 30)
-    # print('#############################################' + '\n')
+    # Use KFold Cross Validation to calculate mean, precision, etc.
+    # TODO: Add more models here
+    if n_splits > 0:
+        print(f"Calculating mean, precision, etc. using KFold Cross Validation with {n_splits} splits")
+        if model_name == 'gbr':
+            gbr_print_model_with_kfold(cleaned_df, n_splits)
+        elif model_name == 'random_forest':
+            rf_print_model_with_kfold(cleaned_df, n_splits)
+        elif model_name == 'nn':
+            nn_print_model_with_kfold(cleaned_df, n_splits)
+        else:
+            print(f"Model not supported, please use one of the following: {', '.join(supported_models)}")
+            sys.exit(1)
+        print('#############################################' + '\n')
 
     # Predict the price of the apartment using the trained model and the given input attributes
     # check if the prediction data is given
@@ -155,7 +184,6 @@ def main():
             # Get additional attributes (distances to important places)
             input_attributes = get_extra_attributes(input_attributes, city)
             # The prediction is general to all models
-            # TODO: Move the method to another file
             predicted_price = general_predict_price(model, input_attributes)
             print(f"{i}. The predicted price of the apartment is: {predicted_price}")
             i += 1
