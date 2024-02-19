@@ -28,7 +28,7 @@ pip install -r requirements.txt
 To use the project, you need to run the main.py file.
 
 ```bash
-python3 main.py <city_name> [-a] [-t <model_name>] [-p <path_to_json_file>] [-c <n_splits>]
+python3 main.py <city_name> [-a] [-t <model_name>] [-p <path_to_json_file>] [-c <n_splits>] [-o]
 ```
 
 The city name is the name of the city where you want to estimate the price of a house. 
@@ -68,6 +68,8 @@ Supported cities are
 
 
 -c is an optional argument to use when you want to use a specific number of splits for the cross validation. Follow -c with the number of splits.
+
+-o is an optional argument to use when you want to use the hyperparameter optimization for the model.
 
 
 # Tools

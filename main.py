@@ -6,7 +6,7 @@ from analyse_data import analyse
 from models.predictor import general_predict_price
 from preprocess.preprocess import preprocess_data
 
-from models.gbr import gbr_train_model
+from models.gbr import gbr_train_model, gbr_tune_hyper_parameters
 from models.gbr import gbr_print_model_with_kfold
 
 from models.nn import nn_train_model
@@ -51,7 +51,7 @@ def main():
     # if not, comment it out and use the city variable above
     if len(sys.argv) < 2:
         print(f'Usage: '
-              f'python3 {sys.argv[0]} <city_name> [-a] [-t <model_name>] [-p <path_to_json_file>] [-c <n_splits>]')
+              f'python3 {sys.argv[0]} <city_name> [-a] [-t <model_name>] [-p <path_to_json_file>] [-c <n_splits>] [-o]')
         print(f'Example: python3 {sys.argv[0]} paris -a -t gbr -p prediction/prediction_data.json')
         sys.exit(1)
 
@@ -145,6 +145,18 @@ def main():
     if analyse_mode:
         analyse(cleaned_df)
         print('#############################################' + '\n')
+
+    # If there is an argument -o in the command line it must not contain any other arguments
+    # This is the argument for hyperparameter tuning and optimization (the command -o is optional)
+    # TODO: Add more models here
+    if '-o' in sys.argv:
+        print(f"Hyperparameter tuning and optimization for model: {model_name}...")
+        if model_name == 'gbr':
+            gbr_tune_hyper_parameters(cleaned_df)
+            print('#############################################' + '\n')
+        else:
+            print(f"Model not supported yet for hyperparameter tuning")
+            print('#############################################' + '\n')
 
     print(f"Training model: {model_name}...")
 
