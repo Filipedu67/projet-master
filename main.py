@@ -4,6 +4,7 @@ import sys
 from load_data import load_data
 from analyse_data import analyse
 from models.predictor import general_predict_price
+from models.xgb import xgb_train_model, xgb_print_model_with_kfold
 from preprocess.preprocess import preprocess_data
 
 from models.gbr import gbr_train_model
@@ -42,7 +43,8 @@ supported_models = [
     'gbr',
     'random_forest',
     'nn',
-    'knn'
+    'knn',
+    'xgb'
 ]
 
 
@@ -158,6 +160,8 @@ def main():
         model = nn_train_model(cleaned_df)
     elif model_name == 'knn':
         model = knn_train_model(cleaned_df)
+    elif model_name == 'xgb':
+        model = xgb_train_model(cleaned_df)
     else:
         print(f"Model not supported, please use one of the following: {', '.join(supported_models)}")
         sys.exit(1)
@@ -177,6 +181,8 @@ def main():
             nn_print_model_with_kfold(cleaned_df, n_splits)
         elif model_name == 'knn':
             knn_print_model_with_kfold(cleaned_df, n_splits)
+        elif model_name == 'xgb':
+            xgb_print_model_with_kfold(cleaned_df, n_splits)
         else:
             print(f"Model not supported, please use one of the following: {', '.join(supported_models)}")
             sys.exit(1)
