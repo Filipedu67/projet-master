@@ -19,6 +19,10 @@ from models.random_forest import rf_print_model_with_kfold
 from models.knn import knn_train_model
 from models.knn import knn_print_model_with_kfold
 
+from models.lasso import lasso_train_model
+from models.lasso import lasso_print_model_with_kfold
+from models.lasso import lasso_tune_hyper_parameters
+
 from preprocess.preprocess import get_extra_attributes
 
 # dataset to use
@@ -44,7 +48,8 @@ supported_models = [
     'random_forest',
     'nn',
     'knn',
-    'xgb'
+    'xgb',
+    'lasso'
 ]
 
 
@@ -156,6 +161,9 @@ def main():
         if model_name == 'gbr':
             gbr_tune_hyper_parameters(cleaned_df)
             print('#############################################' + '\n')
+        if model_name == 'lasso':
+            lasso_tune_hyper_parameters(cleaned_df)
+            print('#############################################' + '\n')
         else:
             print(f"Model not supported yet for hyperparameter tuning")
             print('#############################################' + '\n')
@@ -172,6 +180,8 @@ def main():
         model = nn_train_model(cleaned_df)
     elif model_name == 'knn':
         model = knn_train_model(cleaned_df)
+    elif model_name == 'lasso':
+        model = lasso_train_model(cleaned_df)
     elif model_name == 'xgb':
         model = xgb_train_model(cleaned_df)
     else:
@@ -195,6 +205,8 @@ def main():
             knn_print_model_with_kfold(cleaned_df, n_splits)
         elif model_name == 'xgb':
             xgb_print_model_with_kfold(cleaned_df, n_splits)
+        elif model_name == 'lasso':
+            lasso_print_model_with_kfold(cleaned_df, n_splits)
         else:
             print(f"Model not supported, please use one of the following: {', '.join(supported_models)}")
             sys.exit(1)
