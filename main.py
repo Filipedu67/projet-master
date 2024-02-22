@@ -22,8 +22,8 @@ from models.knn import knn_print_model_with_kfold
 from preprocess.preprocess import get_extra_attributes
 
 # dataset to use
-city = 'paris'
-analyse_mode = True
+# city = 'paris'
+# analyse_mode = True
 
 supported_cities = [
     'bordeaux',

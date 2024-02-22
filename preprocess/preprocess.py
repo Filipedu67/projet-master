@@ -67,6 +67,8 @@ TOUL_LON_MAX = 1.536952
 COLUMNS_TO_KEEP = ['price', 'elevator', 'location.lat', 'location.lon', 'surface', 'bedroom', 'floor',
                    'furnished', 'room']
 
+ADD_METRO_STATION = False
+
 
 def preprocess_data(df: pandas.DataFrame, city: str) -> pandas.DataFrame:
     """
@@ -195,6 +197,32 @@ def haversine(lon1, lat1, lon2, lat2):
     return c * r
 
 
+def get_metro_stations_for_city(city_name):
+    """
+    Extracts metro station coordinates for a specified city from the given dataset.
+
+    Parameters:
+    - city_name (str): The name of the city for which to extract metro station coordinates.
+    - metro_data (pd.DataFrame): DataFrame containing metro station data.
+
+    Returns:
+    - List of tuples: Each tuple contains (longitude, latitude) of a metro station in the specified city.
+    """
+
+    # Load the metro station data
+    metro_data_path = 'data/metro-france.csv'
+    metro_df = pd.read_csv(metro_data_path, sep=';')
+
+    # Filter the dataframe for the specified city
+    # city_metro_stations = metro_df[metro_df['Commune nom'].str.lower() == city_name.lower()]
+    city_metro_stations = metro_df[metro_df['Commune nom'].str.contains(city_name, case=False, na=False)]
+
+    # Extract the coordinates as a list of tuples
+    station_coordinates = list(city_metro_stations[['Longitude', 'Latitude']].itertuples(index=False, name=None))
+
+    return station_coordinates
+
+
 def get_important_places(city):
     """
     Return a dictionary of important places in the given city.
@@ -202,8 +230,12 @@ def get_important_places(city):
     :return: dictionary of important places
     """
 
+    metro_station_places = get_metro_stations_for_city(city)
+    # Convert metro stations list to a dictionary with unique keys
+    metro_stations_dict = {f"metroStation{i + 1}": station for i, station in enumerate(metro_station_places)}
+
     if city == 'paris':
-        return {
+        important_places = {
             'parisGareEst': (48.8763, 2.359),
             'parisGareMontparnasse': (48.8409, 2.321),
             'parisEiffel': (48.8584, 2.2945),
@@ -218,7 +250,7 @@ def get_important_places(city):
             # Add more places here if needed
         }
     elif city == 'strasbourg':
-        return {
+        important_places = {
             'strasbourgCathedral': (48.5818, 7.7506),
             'europeanParliament': (48.5975, 7.7658),
             'parcOrangerie': (48.5861, 7.7760),
@@ -230,7 +262,7 @@ def get_important_places(city):
             # Add more places here if needed
         }
     elif city == 'lyon':
-        return {
+        important_places = {
             'lyonCathedral': (45.7602, 4.8267),
             'placeBellecour': (45.7578, 4.8325),
             'parcTeteDor': (45.7772, 4.8558),
@@ -240,7 +272,7 @@ def get_important_places(city):
             'halleTonyGarnier': (45.7331, 4.8187),
         }
     elif city == 'nantes':
-        return {
+        important_places = {
             'nantesCathedral': (47.2181, -1.5534),
             'chateauDesDucsDeBretagne': (47.2155, -1.5477),
             'jardinDesPlantes': (47.2184, -1.5413),
@@ -250,7 +282,7 @@ def get_important_places(city):
             'machinesOfTheIsleOfNantes': (47.2078, -1.5645),
         }
     elif city == 'bordeaux':
-        return {
+        important_places = {
             'placeDeLaBourse': (44.8412, -0.5704),
             'grandTheatre': (44.8420, -0.5746),
             'parcBordelais': (44.8483, -0.5944),
@@ -260,7 +292,7 @@ def get_important_places(city):
             'citéDuVin': (44.8627, -0.5504),
         }
     elif city == 'lille':
-        return {
+        important_places = {
             'lilleFlandresStation': (50.6366, 3.0695),
             'grandPlaceLille': (50.6372, 3.0633),
             'lilleEuropeStation': (50.6394, 3.0755),
@@ -269,7 +301,7 @@ def get_important_places(city):
             'lilleAirport': (50.5617, 3.0894),
         }
     elif city == 'marseille':
-        return {
+        important_places = {
             'oldPortOfMarseille': (43.2954, 5.3745),
             'notreDameDeLaGarde': (43.2849, 5.3698),
             'stadeVelodrome': (43.2706, 5.3959),
@@ -278,7 +310,7 @@ def get_important_places(city):
             'marseilleProvenceAirport': (43.4393, 5.2214),
         }
     elif city == 'montpellier':
-        return {
+        important_places = {
             'placeDeLaComedie': (43.6085, 3.8795),
             'montpellierSaintRochStation': (43.6045, 3.8802),
             'montpellierMediterraneeAirport': (43.5762, 3.9631),
@@ -287,7 +319,7 @@ def get_important_places(city):
             'montpellierZoo': (43.6391, 3.8739),
         }
     elif city == 'nice':
-        return {
+        important_places = {
             'promenadeDesAnglais': (43.6952, 7.2656),
             'niceVilleStation': (43.7045, 7.2619),
             'castleHillOfNice': (43.6951, 7.2798),
@@ -296,7 +328,7 @@ def get_important_places(city):
             'matisseMuseum': (43.7192, 7.2763),
         }
     elif city == 'toulouse':
-        return {
+        important_places = {
             'capitoleDeToulouse': (43.6045, 1.4435),
             'toulouseMatabiauStation': (43.6111, 1.4544),
             'citéDeLEspace': (43.5861, 1.4904),
@@ -307,6 +339,13 @@ def get_important_places(city):
     else:
         print('invalid city')
         return None
+
+    # Combine the metro stations with the important places
+    # NOTE: Doesn't work well with NN model
+    if ADD_METRO_STATION:
+        important_places.update(metro_stations_dict)
+
+    return important_places
 
 
 def get_extra_attributes(input_attributes, city):
