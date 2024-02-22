@@ -6,6 +6,7 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import KFold
 import numpy as np
 
+from preprocess.preprocess import COLUMN_TO_PREDICT
 
 # Define the parameter grid
 param_grid = {
@@ -30,8 +31,8 @@ def gbr_tune_hyper_parameters(data: pd.DataFrame):
             data[column] = label_encoder.fit_transform(data[column])
 
     # Split the data into features and target variable
-    X = data.drop('price', axis=1)
-    y = data['price']
+    X = data.drop(COLUMN_TO_PREDICT, axis=1)
+    y = data[COLUMN_TO_PREDICT]
 
     # Split the data into training and testing sets
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
@@ -65,8 +66,8 @@ def gbr_train_model(data: pd.DataFrame):
             data[column] = label_encoder.fit_transform(data[column])
 
     # Split the data into features and target variable
-    X = data.drop('price', axis=1)
-    y = data['price']
+    X = data.drop(COLUMN_TO_PREDICT, axis=1)
+    y = data[COLUMN_TO_PREDICT]
 
     # Split the data into training and testing sets
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
@@ -101,8 +102,8 @@ def gbr_print_model_with_kfold(data: pd.DataFrame, n_splits=30):
     """
 
     # Split the data into features and target variable
-    X = data.drop('price', axis=1)
-    y = data['price']
+    X = data.drop(COLUMN_TO_PREDICT, axis=1)
+    y = data[COLUMN_TO_PREDICT]
 
     # Initialize the KFold cross-validator
     kf = KFold(n_splits=n_splits, shuffle=True, random_state=42)

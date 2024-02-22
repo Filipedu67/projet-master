@@ -9,6 +9,8 @@ from sklearn.model_selection import KFold
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 
+from preprocess.preprocess import COLUMN_TO_PREDICT
+
 def nn_train_model(data: pd.DataFrame):
     """
     Train a Neural Network model on the given dataset.
@@ -23,8 +25,8 @@ def nn_train_model(data: pd.DataFrame):
         if data[column].dtype == 'object':
             data[column] = label_encoder.fit_transform(data[column])
 
-    X = data.drop('price', axis=1)
-    y = data['price']
+    X = data.drop(COLUMN_TO_PREDICT, axis=1)
+    y = data[COLUMN_TO_PREDICT]
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
@@ -85,8 +87,8 @@ def nn_print_model_with_kfold(data: pd.DataFrame, n_splits=30):
     """
 
     # Split the data into features and target variable
-    X = data.drop('price', axis=1)
-    y = data['price']
+    X = data.drop(COLUMN_TO_PREDICT, axis=1)
+    y = data[COLUMN_TO_PREDICT]
 
     # Initialize the KFold cross-validator
     kf = KFold(n_splits=n_splits, shuffle=True, random_state=42)

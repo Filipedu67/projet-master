@@ -4,6 +4,8 @@ import math, sys
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 
+from preprocess.preprocess import COLUMN_TO_PREDICT
+
 cities = [
     'bordeaux',
     'lille',
@@ -25,7 +27,7 @@ def get_city_dataframes():
     return dfs
 
 def evaluate_mean(city_df) -> None:
-    X, y = city_df['surface'], city_df['price']
+    X, y = city_df['surface'], city_df[COLUMN_TO_PREDICT]
     # seperating the data into 80/20 train/test sets
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
     

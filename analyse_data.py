@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import plotly.express as px
 import pandas
 
+from preprocess.preprocess import COLUMN_TO_PREDICT
 
 def analyse(df: pandas.DataFrame) -> None:
     # 1. Data Overview
@@ -11,14 +12,14 @@ def analyse(df: pandas.DataFrame) -> None:
 
     # 2. Descriptive Statistics
     # Calculating mean, median for price and surface
-    print("Mean price:", df['price'].mean())
-    print("Median price:", df['price'].median())
+    print("Mean price:", df[COLUMN_TO_PREDICT].mean())
+    print("Median price:", df[COLUMN_TO_PREDICT].median())
     print("Mean surface:", df['surface'].mean())
     print("Median surface:", df['surface'].median())
 
     # 3. Distribution Analysis
     # Histogram for price
-    sns.histplot(df['price'], kde=True)
+    sns.histplot(df[COLUMN_TO_PREDICT], kde=True)
     plt.title('Price Distribution')
     plt.show()
 
@@ -29,29 +30,29 @@ def analyse(df: pandas.DataFrame) -> None:
 
     # 5. Category Analysis
     # Boxplot for price by number of rooms
-    sns.boxplot(x='room', y='price', data=df)
+    sns.boxplot(x='room', y=COLUMN_TO_PREDICT, data=df)
     plt.title('Price Distribution by Number of Rooms')
     plt.show()
 
     # Boxplot for price by elevator presence
-    sns.boxplot(x='elevator', y='price', data=df)
+    sns.boxplot(x='elevator', y=COLUMN_TO_PREDICT, data=df)
     plt.title('Price Distribution by Elevator Presence')
     plt.show()
 
     # 6. Location Analysis
     # Scatter plot for price by latitude and longitude
-    sns.scatterplot(x='location.lon', y='location.lat', size='price', hue='price', data=df)
+    sns.scatterplot(x='location.lon', y='location.lat', size=COLUMN_TO_PREDICT, hue=COLUMN_TO_PREDICT, data=df)
     plt.title('Price Distribution by Location')
     plt.xlabel('Longitude')
     plt.ylabel('Latitude')
     plt.show()
 
     # Normalize the price for color mapping
-    price_normalized = (df['price'] - df['price'].min()) / (df['price'].max() - df['price'].min())
+    price_normalized = (df[COLUMN_TO_PREDICT] - df[COLUMN_TO_PREDICT].min()) / (df[COLUMN_TO_PREDICT].max() - df[COLUMN_TO_PREDICT].min())
 
     plt.figure(figsize=(10, 6))
-    plt.scatter(df['location.lon'], df['location.lat'], alpha=0.6, c=price_normalized, cmap='viridis', s=df['price'] / 10000)
-    plt.colorbar(label='Price')
+    plt.scatter(df['location.lon'], df['location.lat'], alpha=0.6, c=price_normalized, cmap='viridis', s=df[COLUMN_TO_PREDICT] / 10000)
+    plt.colorbar(label=COLUMN_TO_PREDICT)
     plt.xlabel('Longitude')
     plt.ylabel('Latitude')
     plt.title('Price Based on Location')

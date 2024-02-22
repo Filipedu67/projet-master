@@ -3,6 +3,7 @@ import json
 import pandas
 import pandas as pd
 
+from preprocess.preprocess import COLUMN_TO_PREDICT
 
 def load_data(file_path):
     """
@@ -46,7 +47,7 @@ def correct_data_types(df: pandas.DataFrame) -> pandas.DataFrame:
     """
     df['elevator'] = df['elevator'].astype(bool)
 
-    df['price'] = pd.to_numeric(df['price'], errors='coerce')
+    df[COLUMN_TO_PREDICT] = pd.to_numeric(df[COLUMN_TO_PREDICT], errors='coerce')
 
     df['bedroom'] = pd.to_numeric(df['bedroom'], errors='coerce')
 
