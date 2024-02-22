@@ -5,7 +5,7 @@ import pandas as pd
 
 from preprocess.preprocess import COLUMN_TO_PREDICT
 
-def load_data(file_path):
+def load_json_data(file_path):
     """
     Loads a JSON file into a pandas DataFrame.
 
@@ -37,6 +37,23 @@ def load_data(file_path):
     except Exception as e:
         print(f"An error occurred: {e}")
 
+def load_csv_data(file_path):
+    """
+    Loads a CSV file into a pandas DataFrame.
+
+    :param file_path: Path to the CSV file
+    :return: pandas DataFrame containing the data
+    """
+    try:
+        # Load the CSV file into a DataFrame
+        df = pd.read_csv(file_path, sep='|')
+
+        return df
+
+    except FileNotFoundError:
+        print(f"File not found: {file_path}")
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
 def correct_data_types(df: pandas.DataFrame) -> pandas.DataFrame:
     """
@@ -47,7 +64,7 @@ def correct_data_types(df: pandas.DataFrame) -> pandas.DataFrame:
     """
     df['elevator'] = df['elevator'].astype(bool)
 
-    df[COLUMN_TO_PREDICT] = pd.to_numeric(df[COLUMN_TO_PREDICT], errors='coerce')
+    df['price'] = pd.to_numeric(df['price'], errors='coerce')
 
     df['bedroom'] = pd.to_numeric(df['bedroom'], errors='coerce')
 
@@ -60,8 +77,6 @@ def correct_data_types(df: pandas.DataFrame) -> pandas.DataFrame:
     df['floor'] = pd.to_numeric(df['floor'], errors='coerce')
 
     df['furnished'] = df['furnished'].astype(bool)
-
-    df['pricePerMeter'] = pd.to_numeric(df['pricePerMeter'], errors='coerce')
 
     df['pricePerMeter'] = pd.to_numeric(df['pricePerMeter'], errors='coerce')
 

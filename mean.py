@@ -1,4 +1,4 @@
-from load_data import load_data
+from load_data import load_json_data
 import math, sys
 
 from sklearn.model_selection import train_test_split
@@ -22,7 +22,7 @@ cities = [
 def get_city_dataframes():
     dfs = {} 
     for city in cities:
-        data = load_data(f"data/data-{city}.json")
+        data = load_json_data(f"data/data-{city}.json")
         dfs[city] = data
     return dfs
 

@@ -2,6 +2,8 @@ import pandas
 import pandas as pd
 from math import radians, cos, sin, asin, sqrt
 
+from sklearn.preprocessing import LabelEncoder
+
 # Define the bounds for Paris (Ile de france) (approximate values)
 PARIS_LAT_MIN = 48.851981
 PARIS_LAT_MAX = 48.997016
@@ -62,12 +64,25 @@ TOUL_LAT_MAX = 43.698439
 TOUL_LON_MIN = 1.324922
 TOUL_LON_MAX = 1.536952
 
-COLUMN_TO_PREDICT = 'price'
+COLUMN_TO_PREDICT = 'Valeur fonciere'
 
 # Define the columns you want to keep
 # IMPORTANT: When you add new columns, remember to handle their value type (conversion to int, etc.)
 COLUMNS_TO_KEEP = ['price', 'elevator', 'location.lat', 'location.lon', 'surface', 'bedroom', 'floor',
                    'furnished', 'room', 'propertyType', 'city.department.code']
+
+COLUMNS_TO_KEEP_V2 = ['No disposition', 'Nature mutation', 'Valeur fonciere', 'No voie', 'B/T/Q', 'Type de voie',
+                      'Code voie', 'Voie',
+                      'Code postal', 'Code departement', 'Code commune', 'Commune', 'Prefixe de section', 'Section', 'No plan',
+                      '1er lot',
+                      'Surface Carrez du 1er lot', '2eme lot', 'Surface Carrez du 2eme lot', '3eme lot',
+                      'Surface Carrez du 3eme lot',
+                      '4eme lot', 'Surface Carrez du 4eme lot', '5eme lot', 'Surface Carrez du 5eme lot',
+                      'Nombre de lots',
+                      'Type local', 'Code type local', 'Surface reelle bati',
+                      'Nombre pieces principales',
+                      'Nature culture', 'Nature culture speciale', 'Surface terrain']
+# Identifiant local
 
 ADD_METRO_STATION = False
 
@@ -156,6 +171,64 @@ def preprocess_data(df: pandas.DataFrame, city: str) -> pandas.DataFrame:
     print_rows_with_nulls(df)
 
     # end of cleaning up the data
+
+    return df
+
+
+def preprocess_data_v2(df: pandas.DataFrame) -> pandas.DataFrame:
+    """
+    Preprocess the data by cleaning it up and adding new features.
+    :param df: pandas DataFrame containing the data.
+    :param city: Name of the city.
+    :return: pandas DataFrame with cleaned up data and new features added.
+    """
+    # Starting data clean up
+
+    df = filter_columns(df, COLUMNS_TO_KEEP_V2)
+
+    # Handle missing values by replacing them with the mean, empty string, or False
+    df = handle_missing_values(df)
+
+    # Convert strings to integers
+    df = label_encode_data(df)
+
+    # Print rows with null or NaN values
+    print_rows_with_nulls(df)
+
+    # end of cleaning up the data
+    return df
+
+
+def label_encode_data(df: pandas.DataFrame) -> pandas.DataFrame:
+    """
+    Convert string values to integers.
+    :param df: pandas DataFrame containing the data.
+    :return: pandas DataFrame with string values converted to integers.
+    """
+
+    # Initialize label encoders
+    le_nature_mutation = LabelEncoder()
+    le_type_de_voie = LabelEncoder()
+    le_commune = LabelEncoder()
+    le_type_local = LabelEncoder()
+    btq = LabelEncoder()
+    code_voie = LabelEncoder()
+    voie = LabelEncoder()
+    section = LabelEncoder()
+    nature_culture = LabelEncoder()
+    nature_culture_speciale = LabelEncoder()
+
+    # Fit and transform the data
+    df['Nature mutation'] = le_nature_mutation.fit_transform(df['Nature mutation'])
+    df['B/T/Q'] = btq.fit_transform(df['B/T/Q'])
+    df['Type de voie'] = le_type_de_voie.fit_transform(df['Type de voie'])
+    df['Code voie'] = code_voie.fit_transform(df['Code voie'])
+    df['Voie'] = voie.fit_transform(df['Voie'])
+    df['Commune'] = le_commune.fit_transform(df['Commune'])
+    df['Section'] = section.fit_transform(df['Section'])
+    df['Type local'] = le_type_local.fit_transform(df['Type local'])
+    df['Nature culture'] = nature_culture.fit_transform(df['Nature culture'])
+    df['Nature culture speciale'] = nature_culture_speciale.fit_transform(df['Nature culture speciale'])
 
     return df
 

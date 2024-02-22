@@ -1,11 +1,11 @@
 import json
 import sys
 
-from load_data import load_data
+from load_data import load_json_data, load_csv_data
 from analyse_data import analyse
 from models.predictor import general_predict_price
 from models.xgb import xgb_train_model, xgb_print_model_with_kfold
-from preprocess.preprocess import preprocess_data
+from preprocess.preprocess import preprocess_data, preprocess_data_v2
 
 from models.gbr import gbr_train_model, gbr_tune_hyper_parameters
 from models.gbr import gbr_print_model_with_kfold
@@ -28,6 +28,13 @@ from preprocess.preprocess import get_extra_attributes
 # dataset to use
 # city = 'paris'
 # analyse_mode = True
+
+supported_versions = ['1', '2']
+
+# data version to use
+# 1: original data
+# 2: valeurs foncieres data
+version = 2
 
 supported_cities = [
     'bordeaux',
@@ -124,7 +131,13 @@ def main():
             sys.exit(1)
 
     # Path to the data file
-    file_path = f"data/data-{city}.json"
+    if version == 1:
+        file_path = f"data/data-{city}.json"
+    elif version == 2:
+        file_path = f"data/valeursfoncieres-2023.csv"
+    else:
+        print(f"Version not supported, please use one of the following: {', '.join(supported_versions)}")
+        sys.exit(1)
 
     # Check if file exists
     try:
@@ -137,13 +150,22 @@ def main():
     print('#############################################' + '\n')
 
     # Load the data as pandas DataFrame
-    df = load_data(file_path)
+    if version == 1:
+        df = load_json_data(file_path)
+    elif version == 2:
+        df = load_csv_data(file_path)
+    else:
+        print(f"Version not supported, please use one of the following: {', '.join(supported_versions)}")
+        sys.exit(1)
 
     print(f"Loaded data for {city}")
     print('#############################################' + '\n')
 
     # Preprocess the data
-    cleaned_df = preprocess_data(df, city)
+    if version == 1:
+        cleaned_df = preprocess_data(df, city)
+    elif version == 2:
+        cleaned_df = preprocess_data_v2(df)
 
     print(f"Preprocessed data for {city}")
     print('#############################################' + '\n')

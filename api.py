@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 
-from load_data import load_data
+from load_data import load_json_data
 from models.gbr import gbr_train_model
 from models.predictor import general_predict_price
 from preprocess.preprocess import preprocess_data, get_extra_attributes
@@ -45,7 +45,7 @@ def predict():
         return jsonify({'error': f"File not found: {file_path}"}), 500
 
     # Load the data as pandas DataFrame
-    df = load_data(file_path)
+    df = load_json_data(file_path)
 
     # Preprocess the data
     cleaned_df = preprocess_data(df, city)
