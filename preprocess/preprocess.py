@@ -67,7 +67,7 @@ COLUMN_TO_PREDICT = 'price'
 # Define the columns you want to keep
 # IMPORTANT: When you add new columns, remember to handle their value type (conversion to int, etc.)
 COLUMNS_TO_KEEP = ['price', 'elevator', 'location.lat', 'location.lon', 'surface', 'bedroom', 'floor',
-                   'furnished', 'room']
+                   'furnished', 'room', 'propertyType', 'city.department.code']
 
 ADD_METRO_STATION = False
 
@@ -444,7 +444,7 @@ def handle_missing_values(df: pandas.DataFrame) -> pandas.DataFrame:
             df[column] = df[column].fillna(df[column].mean())
         # Check if the column is of object type (e.g., strings)
         elif pd.api.types.is_object_dtype(df[column]):
-            df[column].fillna('', inplace=True)
+            df[column] = df[column].fillna('')
         # Check if the column is boolean
         elif pd.api.types.is_bool_dtype(df[column]):
             df[column].fillna(False, inplace=True)

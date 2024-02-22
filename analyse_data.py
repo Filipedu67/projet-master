@@ -60,6 +60,10 @@ def analyse(df: pandas.DataFrame) -> None:
 
     # Assuming `df` is your DataFrame and it has 'lat', 'lon', and 'price' columns
 
+    show_scatter_mapbox(df)
+
+
+def show_scatter_mapbox(df: pandas.DataFrame):
     fig = px.scatter_mapbox(df, lat="location.lat", lon="location.lon", color="price", size="price",
                             color_continuous_scale=px.colors.cyclical.IceFire, size_max=15, zoom=10,
                             mapbox_style="carto-positron")

@@ -19,12 +19,12 @@ def xgb_train_model(data: pd.DataFrame):
     y = data[COLUMN_TO_PREDICT]
 
     # Split the data into training and testing sets
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 
     # Model Training:
-    model = xgb.XGBRegressor(objective='reg:squarederror', colsample_bytree=0.3, learning_rate=0.1,
+    model = xgb.XGBRegressor(objective='reg:squarederror', colsample_bytree=0.3, learning_rate=0.6,
                              max_depth=5, alpha=10, n_estimators=10)
-    model.fit(X_train, y_train, eval_set=[(X_test, y_test)], early_stopping_rounds=10, verbose=False)
+    model.fit(X_train, y_train, eval_set=[(X_test, y_test)], verbose=False)
 
     # Model Evaluation:
     y_pred = model.predict(X_test)
@@ -82,7 +82,7 @@ def xgb_print_model_with_kfold(data: pd.DataFrame, n_splits=30):
     y = data[COLUMN_TO_PREDICT]
 
     # Initialize the KFold cross-validator
-    kf = KFold(n_splits=n_splits, shuffle=True, random_state=42)
+    kf = KFold(n_splits=n_splits, shuffle=True)
 
     # Initialize lists to store the results for each fold
     mae_scores = []
@@ -99,7 +99,7 @@ def xgb_print_model_with_kfold(data: pd.DataFrame, n_splits=30):
         # Model Training:
         model = xgb.XGBRegressor(objective='reg:squarederror', colsample_bytree=0.3, learning_rate=0.1,
                                  max_depth=5, alpha=10, n_estimators=10)
-        model.fit(X_train, y_train, eval_set=[(X_test, y_test)], early_stopping_rounds=10, verbose=False)
+        model.fit(X_train, y_train, eval_set=[(X_test, y_test)], verbose=False)
 
         # Model Evaluation:
         y_pred = model.predict(X_test)
