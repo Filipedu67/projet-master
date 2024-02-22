@@ -34,9 +34,14 @@ def nn_train_model(data: pd.DataFrame):
 
     # Ajout de la couche d'entrée et d'une couche dense
     # Ajout de la couche d'entrée et des couches cachées
-    model.add(Dense(units=128, input_dim=X.shape[1], activation='relu'))
-    model.add(Dense(units=64, activation='relu'))
-    model.add(Dense(units=32, activation='relu'))
+    model.add(Dense(units=4096, activation='selu', input_dim=X.shape[1]))
+    model.add(Dense(units=2048, activation='selu'))
+    model.add(Dense(units=1024, activation='selu'))
+    model.add(Dense(units=512, activation='selu'))
+    model.add(Dense(units=256, activation='selu'))
+    model.add(Dense(units=128, activation='selu'))
+    model.add(Dense(units=64, activation='selu'))
+    model.add(Dense(units=32, activation='selu'))
     model.add(Dense(units=1, activation='linear'))
 
 
