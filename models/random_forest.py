@@ -4,6 +4,7 @@ from sklearn.model_selection import train_test_split, KFold
 import pandas as pd
 import numpy as np
 
+from preprocess.preprocess import COLUMN_TO_PREDICT
 
 def rf_train_model(data: pd.DataFrame):
     """
@@ -14,8 +15,8 @@ def rf_train_model(data: pd.DataFrame):
     """
 
     # Split the data into features and target variable
-    X = data.drop('price', axis=1)
-    y = data['price']
+    X = data.drop(COLUMN_TO_PREDICT, axis=1)
+    y = data[COLUMN_TO_PREDICT]
 
     # Split the data into training and testing sets
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
@@ -50,8 +51,8 @@ def rf_print_model_with_kfold(data: pd.DataFrame, n_splits=30):
     """
 
     # Split the data into features and target variable
-    X = data.drop('price', axis=1)
-    y = data['price']
+    X = data.drop(COLUMN_TO_PREDICT, axis=1)
+    y = data[COLUMN_TO_PREDICT]
 
     # Initialize the KFold cross-validator
     kf = KFold(n_splits=n_splits, shuffle=True, random_state=42)

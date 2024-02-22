@@ -62,6 +62,8 @@ TOUL_LAT_MAX = 43.698439
 TOUL_LON_MIN = 1.324922
 TOUL_LON_MAX = 1.536952
 
+COLUMN_TO_PREDICT = 'price'
+
 # Define the columns you want to keep
 # IMPORTANT: When you add new columns, remember to handle their value type (conversion to int, etc.)
 COLUMNS_TO_KEEP = ['price', 'elevator', 'location.lat', 'location.lon', 'surface', 'bedroom', 'floor',

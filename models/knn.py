@@ -5,6 +5,8 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import LabelEncoder
 import numpy as np
 
+from preprocess.preprocess import COLUMN_TO_PREDICT
+
 def knn_train_model(data: pd.DataFrame, k=10):
     label_encoder = LabelEncoder()
 
@@ -12,8 +14,8 @@ def knn_train_model(data: pd.DataFrame, k=10):
         if data[column].dtype == 'object':
             data[column] = label_encoder.fit_transform(data[column])
 
-    X = data.drop('price', axis=1)
-    y = data['price'].apply(lambda x: 10000 * round(x/10000))
+    X = data.drop(COLUMN_TO_PREDICT, axis=1)
+    y = data[COLUMN_TO_PREDICT].apply(lambda x: 10000 * round(x/10000))
     print(y)
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
@@ -47,8 +49,8 @@ def knn_print_model_with_kfold(data: pd.DataFrame, n_splits=30, k=5):
     """
 
     # Split the data into features and target variable
-    X = data.drop('price', axis=1)
-    y = data['price'].round(-4)
+    X = data.drop(COLUMN_TO_PREDICT, axis=1)
+    y = data[COLUMN_TO_PREDICT].round(-4)
 
     # Initialize the KFold cross-validator
     kf = KFold(n_splits=n_splits, shuffle=True, random_state=42)
