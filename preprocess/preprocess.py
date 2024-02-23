@@ -199,6 +199,9 @@ def preprocess_data_v2(df: pandas.DataFrame) -> pandas.DataFrame:
     return df
 
 
+import pandas
+from sklearn.preprocessing import LabelEncoder
+
 def label_encode_data(df: pandas.DataFrame) -> pandas.DataFrame:
     """
     Convert string values to integers.
@@ -218,17 +221,17 @@ def label_encode_data(df: pandas.DataFrame) -> pandas.DataFrame:
     nature_culture = LabelEncoder()
     nature_culture_speciale = LabelEncoder()
 
-    # Fit and transform the data
-    df['Nature mutation'] = le_nature_mutation.fit_transform(df['Nature mutation'])
-    df['B/T/Q'] = btq.fit_transform(df['B/T/Q'])
-    df['Type de voie'] = le_type_de_voie.fit_transform(df['Type de voie'])
-    df['Code voie'] = code_voie.fit_transform(df['Code voie'])
-    df['Voie'] = voie.fit_transform(df['Voie'])
-    df['Commune'] = le_commune.fit_transform(df['Commune'])
-    df['Section'] = section.fit_transform(df['Section'])
-    df['Type local'] = le_type_local.fit_transform(df['Type local'])
-    df['Nature culture'] = nature_culture.fit_transform(df['Nature culture'])
-    df['Nature culture speciale'] = nature_culture_speciale.fit_transform(df['Nature culture speciale'])
+    # Fit and transform the data using .loc for explicit in-place modification
+    df.loc[:, 'Nature mutation'] = le_nature_mutation.fit_transform(df['Nature mutation'])
+    df.loc[:, 'B/T/Q'] = btq.fit_transform(df['B/T/Q'])
+    df.loc[:, 'Type de voie'] = le_type_de_voie.fit_transform(df['Type de voie'])
+    df.loc[:, 'Code voie'] = code_voie.fit_transform(df['Code voie'])
+    df.loc[:, 'Voie'] = voie.fit_transform(df['Voie'])
+    df.loc[:, 'Commune'] = le_commune.fit_transform(df['Commune'])
+    df.loc[:, 'Section'] = section.fit_transform(df['Section'])
+    df.loc[:, 'Type local'] = le_type_local.fit_transform(df['Type local'])
+    df.loc[:, 'Nature culture'] = nature_culture.fit_transform(df['Nature culture'])
+    df.loc[:, 'Nature culture speciale'] = nature_culture_speciale.fit_transform(df['Nature culture speciale'])
 
     return df
 
@@ -514,13 +517,13 @@ def handle_missing_values(df: pandas.DataFrame) -> pandas.DataFrame:
     for column in df.columns:
         # Check if the column is numeric (int or float)
         if pd.api.types.is_numeric_dtype(df[column]):
-            df[column] = df[column].fillna(df[column].mean())
+            df.loc[:, column] = df[column].fillna(df[column].mean())
         # Check if the column is of object type (e.g., strings)
         elif pd.api.types.is_object_dtype(df[column]):
-            df[column] = df[column].fillna('')
+            df.loc[:, column] = df[column].fillna('')
         # Check if the column is boolean
         elif pd.api.types.is_bool_dtype(df[column]):
-            df[column].fillna(False, inplace=True)
+            df.loc[:, column] = df[column].fillna(False)
 
     return df
 
