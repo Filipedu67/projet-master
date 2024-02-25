@@ -238,7 +238,7 @@ def main_v2():
     if len(sys.argv) < 2:
         print(f'Usage: '
               f'python3 {sys.argv[0]} [-t <model_name>]')
-        print(f'Example: python3 {sys.argv[0]} -a -t gbr -p prediction/prediction_data.json')
+        print(f'Example: python3 {sys.argv[0]} -a -t gbr')
         sys.exit(1)
 
     # Check if argument -a is given in any part of the command line
@@ -379,21 +379,6 @@ def main_v2():
         else:
             print(f"Model not supported, please use one of the following: {', '.join(supported_models)}")
             sys.exit(1)
-        print('#############################################' + '\n')
-
-    # Predict the price of the apartment using the trained model and the given input attributes
-    # check if the prediction data is given
-    if '-p' in sys.argv:
-        i = 1
-        # parse the prediction data, for each element in the array, get the attributes and predict the price
-        for prediction in prediction_data['elements']:
-            input_attributes = prediction
-            # Get additional attributes (distances to important places)
-            input_attributes = get_extra_attributes(input_attributes, city)
-            # The prediction is general to all models
-            predicted_price = general_predict_price(model, input_attributes)
-            print(f"{i}. The predicted price of the apartment is: {predicted_price}")
-            i += 1
         print('#############################################' + '\n')
 
 
