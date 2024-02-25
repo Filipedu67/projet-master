@@ -25,29 +25,12 @@ from models.lasso import lasso_tune_hyper_parameters
 
 from preprocess.preprocess import get_extra_attributes
 
+from utility import SUPPORTED_CITIES
+from utility import VERSION
+
 # dataset to use
 # city = 'paris'
 # analyse_mode = True
-
-supported_versions = ['1', '2']
-
-# data version to use
-# 1: original data
-# 2: valeurs foncieres data
-version = 2
-
-supported_cities = [
-    'bordeaux',
-    'lille',
-    'lyon',
-    'marseille',
-    'montpellier',
-    'nantes',
-    'nice',
-    'paris',
-    'strasbourg',
-    'toulouse'
-]
 
 # TODO: Add more models here
 supported_models = [
@@ -93,8 +76,8 @@ def main():
         print(f"Using default model: {model_name}")
 
     # check if the given city is supported
-    if not city in supported_cities:
-        print(f"City not supported, please use one of the following: {', '.join(supported_cities)}")
+    if not city in SUPPORTED_CITIES:
+        print(f"City not supported, please use one of the following: {', '.join(SUPPORTED_CITIES)}")
         sys.exit(1)
 
     # If there is an argument -p in the command line it must contain the path to a json file after it (prediction data)
@@ -383,7 +366,7 @@ def main_v2():
 
 
 if __name__ == "__main__":
-    if version == 1:
+    if VERSION == 1:
         main()
-    if version == 2:
+    if VERSION == 2:
         main_v2()

@@ -3,7 +3,6 @@ import json
 import pandas
 import pandas as pd
 
-from preprocess.preprocess import COLUMN_TO_PREDICT
 
 def load_json_data(file_path):
     """

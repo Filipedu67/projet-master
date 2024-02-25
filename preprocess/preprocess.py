@@ -4,6 +4,12 @@ from math import radians, cos, sin, asin, sqrt
 
 from sklearn.preprocessing import LabelEncoder
 
+from utility import COLUMN_TO_PREDICT
+from utility import COLUMNS_TO_KEEP
+from utility import COLUMNS_TO_KEEP_V2
+from utility import PRICE_THRESHOLD
+from utility import ADD_METRO_STATION
+
 # Define the bounds for Paris (Ile de france) (approximate values)
 PARIS_LAT_MIN = 48.851981
 PARIS_LAT_MAX = 48.997016
@@ -63,32 +69,6 @@ TOUL_LAT_MIN = 43.490621
 TOUL_LAT_MAX = 43.698439
 TOUL_LON_MIN = 1.324922
 TOUL_LON_MAX = 1.536952
-
-COLUMN_TO_PREDICT = 'Valeur fonciere'
-
-# Define the columns you want to keep
-# IMPORTANT: When you add new columns, remember to handle their value type (conversion to int, etc.)
-COLUMNS_TO_KEEP = ['price', 'elevator', 'location.lat', 'location.lon', 'surface', 'bedroom', 'floor',
-                   'furnished', 'room', 'propertyType', 'city.department.code']
-
-COLUMNS_TO_KEEP_V2 = ['Valeur fonciere', 'No voie', 'B/T/Q', 'Type de voie',
-                      'Code voie', 'Voie',
-                      'Code postal', 'Code departement', 'Code commune', 'Commune',
-                      '1er lot',
-                      'Surface Carrez du 1er lot', '2eme lot', 'Surface Carrez du 2eme lot', '3eme lot',
-                      'Surface Carrez du 3eme lot',
-                      '4eme lot', 'Surface Carrez du 4eme lot', '5eme lot', 'Surface Carrez du 5eme lot',
-                      'Nombre de lots',
-                      'Type local', 'Code type local', 'Surface reelle bati',
-                      'Nombre pieces principales',
-                      'Surface terrain', 'No disposition', 'Nature mutation', 'Prefixe de section', 'Section', 'No plan',
-                      'Nature culture', 'Nature culture speciale']
-# Identifiant local
-
-# minimum and maximum price threshold
-PRICE_THRESHOLD = [100000, 300000]
-
-ADD_METRO_STATION = False
 
 
 def preprocess_data(df: pandas.DataFrame, city: str) -> pandas.DataFrame:
