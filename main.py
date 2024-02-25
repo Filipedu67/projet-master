@@ -25,8 +25,8 @@ from models.lasso import lasso_tune_hyper_parameters
 
 from preprocess.preprocess import get_extra_attributes
 
-from utility import SUPPORTED_CITIES
-from utility import VERSION
+from data import SUPPORTED_CITIES
+from data import VERSION
 
 # dataset to use
 # city = 'paris'
