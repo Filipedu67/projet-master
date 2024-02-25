@@ -567,7 +567,8 @@ def handle_missing_values_v2(df: pandas.DataFrame) -> pandas.DataFrame:
     # Count rows after deletion to calculate the number of deleted rows
     final_row_count = len(df)
     deleted_rows = initial_row_count - final_row_count
-    print(f'Number of deleted rows: {deleted_rows}')
+    print(f'Number of deleted rows due to valuer fonciere column being empty: {deleted_rows}')
+    print(f'#####################################################')
 
     for column in df.columns:
         if pd.api.types.is_numeric_dtype(df[column]):
