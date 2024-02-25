@@ -71,9 +71,9 @@ COLUMN_TO_PREDICT = 'Valeur fonciere'
 COLUMNS_TO_KEEP = ['price', 'elevator', 'location.lat', 'location.lon', 'surface', 'bedroom', 'floor',
                    'furnished', 'room', 'propertyType', 'city.department.code']
 
-COLUMNS_TO_KEEP_V2 = ['No disposition', 'Nature mutation', 'Valeur fonciere', 'No voie', 'B/T/Q', 'Type de voie',
+COLUMNS_TO_KEEP_V2 = ['Valeur fonciere', 'No voie', 'B/T/Q', 'Type de voie',
                       'Code voie', 'Voie',
-                      'Code postal', 'Code departement', 'Code commune', 'Commune', 'Prefixe de section', 'Section', 'No plan',
+                      'Code postal', 'Code departement', 'Code commune', 'Commune',
                       '1er lot',
                       'Surface Carrez du 1er lot', '2eme lot', 'Surface Carrez du 2eme lot', '3eme lot',
                       'Surface Carrez du 3eme lot',
@@ -81,8 +81,12 @@ COLUMNS_TO_KEEP_V2 = ['No disposition', 'Nature mutation', 'Valeur fonciere', 'N
                       'Nombre de lots',
                       'Type local', 'Code type local', 'Surface reelle bati',
                       'Nombre pieces principales',
-                      'Nature culture', 'Nature culture speciale', 'Surface terrain']
+                      'Surface terrain', 'No disposition', 'Nature mutation', 'Prefixe de section', 'Section', 'No plan',
+                      'Nature culture', 'Nature culture speciale']
 # Identifiant local
+
+# minimum and maximum price threshold
+PRICE_THRESHOLD = [100000, 300000]
 
 ADD_METRO_STATION = False
 
@@ -164,6 +168,8 @@ def preprocess_data(df: pandas.DataFrame, city: str) -> pandas.DataFrame:
     # Handle missing values by replacing them with the mean, empty string, or False
     df = handle_missing_values(df)
 
+    df = limit_price(df, PRICE_THRESHOLD)
+
     # Add extra attributes (e.g., distance to important places)
     df = add_distance_features(df, city)
 
@@ -171,6 +177,24 @@ def preprocess_data(df: pandas.DataFrame, city: str) -> pandas.DataFrame:
     print_rows_with_nulls(df)
 
     # end of cleaning up the data
+
+    return df
+
+
+def limit_price(df: pandas.DataFrame, threshold: list) -> pandas.DataFrame:
+    """
+    Limit the price of the properties to the given threshold.
+
+    :param df: pandas DataFrame containing the data.
+    :param threshold: List containing the minimum and maximum price threshold.
+    :return: pandas DataFrame with price limited to the given threshold.
+    """
+
+    print(f"Limiting the price of the properties to the range {threshold[0]} - {threshold[1]}")
+    print("#####################################################")
+
+    # Limit the price of the properties to the given threshold
+    df = df[(df[COLUMN_TO_PREDICT] >= threshold[0]) & (df[COLUMN_TO_PREDICT] <= threshold[1])]
 
     return df
 
@@ -187,7 +211,10 @@ def preprocess_data_v2(df: pandas.DataFrame) -> pandas.DataFrame:
     df = filter_columns(df, COLUMNS_TO_KEEP_V2)
 
     # Handle missing values by replacing them with the mean, empty string, or False
-    df = handle_missing_values(df)
+    df = handle_missing_values_v2(df)
+
+    # Limit the price of the properties to the given threshold
+    df = limit_price(df, PRICE_THRESHOLD)
 
     # Convert strings to integers
     df = label_encode_data(df)
@@ -198,9 +225,6 @@ def preprocess_data_v2(df: pandas.DataFrame) -> pandas.DataFrame:
     # end of cleaning up the data
     return df
 
-
-import pandas
-from sklearn.preprocessing import LabelEncoder
 
 def label_encode_data(df: pandas.DataFrame) -> pandas.DataFrame:
     """
@@ -222,16 +246,35 @@ def label_encode_data(df: pandas.DataFrame) -> pandas.DataFrame:
     nature_culture_speciale = LabelEncoder()
 
     # Fit and transform the data using .loc for explicit in-place modification
-    df.loc[:, 'Nature mutation'] = le_nature_mutation.fit_transform(df['Nature mutation'])
-    df.loc[:, 'B/T/Q'] = btq.fit_transform(df['B/T/Q'])
-    df.loc[:, 'Type de voie'] = le_type_de_voie.fit_transform(df['Type de voie'])
-    df.loc[:, 'Code voie'] = code_voie.fit_transform(df['Code voie'])
-    df.loc[:, 'Voie'] = voie.fit_transform(df['Voie'])
-    df.loc[:, 'Commune'] = le_commune.fit_transform(df['Commune'])
-    df.loc[:, 'Section'] = section.fit_transform(df['Section'])
-    df.loc[:, 'Type local'] = le_type_local.fit_transform(df['Type local'])
-    df.loc[:, 'Nature culture'] = nature_culture.fit_transform(df['Nature culture'])
-    df.loc[:, 'Nature culture speciale'] = nature_culture_speciale.fit_transform(df['Nature culture speciale'])
+    if 'Nature mutation' in df.columns:
+        df.loc[:, 'Nature mutation'] = le_nature_mutation.fit_transform(df['Nature mutation'])
+
+    if 'B/T/Q' in df.columns:
+        df.loc[:, 'B/T/Q'] = btq.fit_transform(df['B/T/Q'])
+
+    if 'Type de voie' in df.columns:
+        df.loc[:, 'Type de voie'] = le_type_de_voie.fit_transform(df['Type de voie'])
+
+    if 'Code voie' in df.columns:
+        df.loc[:, 'Code voie'] = code_voie.fit_transform(df['Code voie'])
+
+    if 'Voie' in df.columns:
+        df.loc[:, 'Voie'] = voie.fit_transform(df['Voie'])
+
+    if 'Commune' in df.columns:
+        df.loc[:, 'Commune'] = le_commune.fit_transform(df['Commune'])
+
+    if 'Section' in df.columns:
+        df.loc[:, 'Section'] = section.fit_transform(df['Section'])
+
+    if 'Type local' in df.columns:
+        df.loc[:, 'Type local'] = le_type_local.fit_transform(df['Type local'])
+
+    if 'Nature culture' in df.columns:
+        df.loc[:, 'Nature culture'] = nature_culture.fit_transform(df['Nature culture'])
+
+    if 'Nature culture speciale' in df.columns:
+        df.loc[:, 'Nature culture speciale'] = nature_culture_speciale.fit_transform(df['Nature culture speciale'])
 
     return df
 
@@ -499,6 +542,54 @@ def print_rows_with_nulls(df: pandas.DataFrame) -> None:
             print(f"Row {index} with NaN values:")
             print(row)
             print("\n")  # Add a newline for better readability between row
+
+
+def handle_missing_values_v2(df: pandas.DataFrame) -> pandas.DataFrame:
+    """
+    Handle missing values in a DataFrame:
+    - Delete rows where 'Valeur fonciere' is NaN.
+    - Replace NaNs in numeric columns with the mean of the column.
+    - Replace NaNs in object/string columns with an empty string.
+    - Replace NaNs in boolean columns with False.
+
+    Parameters:
+    - df: pandas DataFrame containing the data.
+
+    Returns:
+    - pandas DataFrame: DataFrame with NaN values handled.
+    """
+    # Count rows before deletion
+    initial_row_count = len(df)
+
+    # Delete rows where 'Valeur fonciere' is NaN
+    df = df.dropna(subset=['Valeur fonciere'])
+
+    # Count rows after deletion to calculate the number of deleted rows
+    final_row_count = len(df)
+    deleted_rows = initial_row_count - final_row_count
+    print(f'Number of deleted rows: {deleted_rows}')
+
+    for column in df.columns:
+        if pd.api.types.is_numeric_dtype(df[column]):
+            if df[column].isnull().all():
+                # Directly assign the filled column to the DataFrame
+                df.loc[:, column] = df.loc[:, column].fillna(0)  # For columns with all NaN values
+            else:
+                # Calculate the mean and directly assign the filled column to the DataFrame
+                column_mean = df.loc[:, column].mean()
+                df.loc[:, column] = df.loc[:, column].fillna(column_mean)
+        elif pd.api.types.is_object_dtype(df[column]):
+            # Directly assign the filled column with empty string for object-type columns
+            df.loc[:, column] = df.loc[:, column].fillna('')
+        elif pd.api.types.is_bool_dtype(df[column]):
+            # Directly assign the filled column with False for boolean-type columns
+            df.loc[:, column] = df.loc[:, column].fillna(False)
+        elif pd.api.types.is_datetime64_any_dtype(df[column]):
+            # For datetime columns, you can fill with a specific placeholder date or leave as is
+            # Example: df.loc[:, column] = df.loc[:, column].fillna(pd.Timestamp('your_placeholder_date'))
+            pass
+
+    return df
 
 
 def handle_missing_values(df: pandas.DataFrame) -> pandas.DataFrame:

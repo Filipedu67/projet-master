@@ -2,7 +2,7 @@ import json
 import sys
 
 from load_data import load_json_data, load_csv_data
-from analyse_data import analyse
+from analyse_data import analyse, analyse_v2
 from models.predictor import general_predict_price
 from models.xgb import xgb_train_model, xgb_print_model_with_kfold
 from preprocess.preprocess import preprocess_data, preprocess_data_v2
@@ -318,9 +318,9 @@ def main_v2():
     print('#############################################' + '\n')
 
     # Show the analysis of the data
-    # if analyse_mode:
-    #     analyse(cleaned_df)
-    #     print('#############################################' + '\n')
+    if analyse_mode:
+        analyse_v2(cleaned_df)
+        print('#############################################' + '\n')
 
     # If there is an argument -o in the command line it must not contain any other arguments
     # This is the argument for hyperparameter tuning and optimization (the command -o is optional)

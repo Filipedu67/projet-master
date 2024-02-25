@@ -69,3 +69,24 @@ def show_scatter_mapbox(df: pandas.DataFrame):
                             mapbox_style="carto-positron")
     fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
     fig.show()
+
+
+def analyse_v2(df: pandas.DataFrame) -> None:
+    # 1. Data Overview
+    print(df.info())
+    print(df.describe())
+
+    # 2. Descriptive Statistics
+    # Calculating mean, median for price and surface
+    print("Mean Valeurs fonciere:", df[COLUMN_TO_PREDICT].mean())
+    print("Median Valeurs fonciere:", df[COLUMN_TO_PREDICT].median())
+    print("Mean Surface reelle bati:", df['Surface reelle bati'].mean())
+    print("Median Surface reelle bati:", df['Surface reelle bati'].median())
+
+    sns.boxplot(x='Surface reelle bati', y=COLUMN_TO_PREDICT, data=df)
+    plt.title('Price Distribution by Surface reelle bati')
+    plt.show()
+
+    sns.boxplot(x='Type local', y=COLUMN_TO_PREDICT, data=df)
+    plt.title('Price Distribution by Type local')
+    plt.show()
