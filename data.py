@@ -43,6 +43,6 @@ COLUMNS_TO_KEEP_V2 = ['Valeur fonciere', 'No voie', 'B/T/Q', 'Type de voie',
 # Identifiant local
 
 # minimum and maximum price threshold
-PRICE_THRESHOLD = [200000, 600000]
+PRICE_THRESHOLD = [50000, 300000]
 
-ADD_METRO_STATION = False
+ADD_METRO_STATION = True
