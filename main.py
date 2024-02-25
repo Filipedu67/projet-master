@@ -3,6 +3,9 @@ import sys
 
 from load_data import load_json_data, load_csv_data
 from analyse_data import analyse, analyse_v2
+
+from models.voting_regressor import voting_regressor_train_model
+
 from models.predictor import general_predict_price
 from models.xgb import xgb_train_model, xgb_print_model_with_kfold
 from preprocess.preprocess import preprocess_data, preprocess_data_v2
@@ -39,7 +42,8 @@ supported_models = [
     'nn',
     'knn',
     'xgb',
-    'lasso'
+    'lasso',
+    'voting_regressor'
 ]
 
 
@@ -172,6 +176,8 @@ def main():
         model = lasso_train_model(cleaned_df)
     elif model_name == 'xgb':
         model = xgb_train_model(cleaned_df)
+    elif model_name == 'voting_regressor':
+        model = voting_regressor_train_model(cleaned_df)
     else:
         print(f"Model not supported, please use one of the following: {', '.join(supported_models)}")
         sys.exit(1)
