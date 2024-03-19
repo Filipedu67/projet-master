@@ -63,7 +63,7 @@ def gbr_train_model(data: pd.DataFrame):
     label_encoder = LabelEncoder()
     for column in data.columns:
         if data[column].dtype == 'object':
-            data[column] = label_encoder.fit_transform(data[column])
+            data.loc[:, column] = label_encoder.fit_transform(data[column])
 
     # Split the data into features and target variable
     X = data.drop(COLUMN_TO_PREDICT, axis=1)

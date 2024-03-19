@@ -1,24 +1,41 @@
 import sys
 import json
-
+import csv
+import os
 
 def reduce_file(element_count, input_file_path, output_file_name):
     try:
-        # Read the input JSON file
-        with open(input_file_path, 'r', encoding='utf-8') as file:
-            data = json.load(file)
+        file_extension = os.path.splitext(input_file_path)[1]
 
-        # Check if the data is a list
-        if not isinstance(data, list):
-            print("JSON is not a list. Please provide a JSON file with a list of elements.")
+        # Process JSON files
+        if file_extension == '.json':
+            with open(input_file_path, 'r', encoding='utf-8') as file:
+                data = json.load(file)
+
+            if not isinstance(data, list):
+                print("JSON is not a list. Please provide a JSON file with a list of elements.")
+                return
+
+            reduced_data = data[:element_count]
+
+            with open(output_file_name, 'w', encoding='utf-8') as file:
+                json.dump(reduced_data, file, indent=4)
+
+        # Process CSV files
+        elif file_extension == '.csv':
+            with open(input_file_path, 'r', encoding='utf-8') as file:
+                reader = csv.reader(file, delimiter='|')
+                data = list(reader)
+
+            reduced_data = data[:element_count + 1]  # Include header row
+
+            with open(output_file_name, 'w', newline='', encoding='utf-8') as file:
+                writer = csv.writer(file)
+                writer.writerows(reduced_data)
+
+        else:
+            print(f"Unsupported file format: {file_extension}")
             return
-
-        # Reduce the data to the first N elements
-        reduced_data = data[:element_count]
-
-        # Write the reduced data to the new file
-        with open(output_file_name, 'w', encoding='utf-8') as file:
-            json.dump(reduced_data, file, indent=4)
 
         print(f"{element_count} elements have been written to {output_file_name}")
 
@@ -28,7 +45,6 @@ def reduce_file(element_count, input_file_path, output_file_name):
         print(f"The file {input_file_path} is not a valid JSON file.")
     except Exception as e:
         print(f"An error occurred: {e}")
-
 
 if __name__ == "__main__":
     if len(sys.argv) != 4:
