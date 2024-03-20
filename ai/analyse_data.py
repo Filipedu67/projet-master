@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import plotly.express as px
 import pandas
 
-from data import COLUMN_TO_PREDICT
+from ai.data import COLUMN_TO_PREDICT
 
 
 def analyse(df: pandas.DataFrame) -> None:

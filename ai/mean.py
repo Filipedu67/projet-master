@@ -1,4 +1,4 @@
-from load_data import load_json_data
+from ai.load_data import load_json_data
 import math, sys
 
 from sklearn.model_selection import train_test_split

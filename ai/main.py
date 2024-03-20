@@ -1,8 +1,8 @@
 import json
 import sys
 
-from load_data import load_json_data, load_csv_data
-from analyse_data import analyse, analyse_v2
+from ai.load_data import load_json_data, load_csv_data
+from ai.analyse_data import analyse, analyse_v2
 
 from models.voting_regressor import voting_regressor_train_model
 
@@ -28,8 +28,8 @@ from models.lasso import lasso_tune_hyper_parameters
 
 from preprocess.preprocess import get_extra_attributes
 
-from data import SUPPORTED_CITIES
-from data import VERSION
+from ai.data import SUPPORTED_CITIES
+from ai.data import VERSION
 
 # dataset to use
 # city = 'paris'

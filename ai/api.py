@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 
-from load_data import load_json_data
+from ai.load_data import load_json_data
 from models.gbr import gbr_train_model
 from models.predictor import general_predict_price
 from preprocess.preprocess import preprocess_data, get_extra_attributes

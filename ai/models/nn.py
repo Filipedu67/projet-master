@@ -1,4 +1,4 @@
-from load_data import load_json_data
+from ai.load_data import load_json_data
 import math
 import pandas as pd
 import numpy as np

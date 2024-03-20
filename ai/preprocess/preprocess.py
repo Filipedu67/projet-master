@@ -4,11 +4,11 @@ from math import radians, cos, sin, asin, sqrt
 
 from sklearn.preprocessing import LabelEncoder
 
-from data import COLUMN_TO_PREDICT
-from data import COLUMNS_TO_KEEP
-from data import COLUMNS_TO_KEEP_V2
-from data import PRICE_THRESHOLD
-from data import ADD_METRO_STATION
+from ai.data import COLUMN_TO_PREDICT
+from ai.data import COLUMNS_TO_KEEP
+from ai.data import COLUMNS_TO_KEEP_V2
+from ai.data import PRICE_THRESHOLD
+from ai.data import ADD_METRO_STATION
 
 # Define the bounds for Paris (Ile de france) (approximate values)
 PARIS_LAT_MIN = 48.851981
