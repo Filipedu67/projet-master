@@ -69,6 +69,12 @@ COLUMNS_TO_KEEP = ['price', 'elevator', 'location.lat', 'location.lon', 'surface
 
 
 def preprocess_data(df: pandas.DataFrame, city: str) -> pandas.DataFrame:
+    """
+    Preprocess the data by cleaning it up and adding new features.
+    :param df: pandas DataFrame containing the data.
+    :param city: Name of the city.
+    :return: pandas DataFrame with cleaned up data and new features added.
+    """
     if city == "paris":
         lat_min = PARIS_LAT_MIN
         lon_min = PARIS_LON_MIN
@@ -129,14 +135,20 @@ def preprocess_data(df: pandas.DataFrame, city: str) -> pandas.DataFrame:
 
     df = filter_columns(df, COLUMNS_TO_KEEP)
 
+    # There are some rows with repeated longitude values, which are most likely errors
+    # We will remove these rows
     df = clean_data_with_repeated_longitudes(df)
 
+    # Remove rows where the latitude and longitude are not within the bounds of the given city
     df = clean_location_data(df, lat_min=lat_min, lat_max=lat_max, lon_min=lon_min, lon_max=lon_max)
 
+    # Handle missing values by replacing them with the mean, empty string, or False
     df = handle_missing_values(df)
 
+    # Add extra attributes (e.g., distance to important places)
     df = add_distance_features(df, city)
 
+    # Print rows with null or NaN values
     print_rows_with_nulls(df)
 
     # end of cleaning up the data
@@ -184,6 +196,12 @@ def haversine(lon1, lat1, lon2, lat2):
 
 
 def get_important_places(city):
+    """
+    Return a dictionary of important places in the given city.
+    :param city: city name
+    :return: dictionary of important places
+    """
+
     if city == 'paris':
         return {
             'parisGareEst': (48.8763, 2.359),
@@ -292,6 +310,13 @@ def get_important_places(city):
 
 
 def get_extra_attributes(input_attributes, city):
+    """
+    Add extra attributes to the input_attributes dictionary.
+    :param input_attributes: existing attributes
+    :param city: city name
+    :return: input_attributes with extra attributes
+    """
+
     # Coordinates for important places in Paris
     important_places = get_important_places(city)
 
@@ -307,6 +332,12 @@ def get_extra_attributes(input_attributes, city):
 
 
 def add_distance_features(df: pd.DataFrame, city: str):
+    """
+    Add distance features to the DataFrame.
+    :param df: pandas DataFrame containing the data.
+    :param city: Name of the city.
+    :return: pandas DataFrame with distance features added.
+    """
     # Coordinates for important places in Paris
     important_places = get_important_places(city)
 
@@ -324,6 +355,11 @@ def add_distance_features(df: pd.DataFrame, city: str):
 
 
 def convert_bool_to_int(df: pandas.DataFrame) -> pandas.DataFrame:
+    """
+    Convert boolean values to integers (0 or 1).
+    :param df: pandas DataFrame containing the data.
+    :return: pandas DataFrame with boolean values converted to integers.
+    """
     df["furnished"] = df["furnished"].astype(int)
 
     df["expired"] = df["expired"].astype(int)

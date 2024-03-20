@@ -7,7 +7,7 @@ from sklearn.model_selection import KFold
 import numpy as np
 
 
-def train_model(data: pd.DataFrame):
+def gbr_train_model(data: pd.DataFrame):
     """
     Train a Gradient Boosting Regressor model on the given dataset.
 
@@ -15,9 +15,7 @@ def train_model(data: pd.DataFrame):
     :return: Trained model
     """
 
-    # Preprocessing Steps:
-
-    # 3. Encode categorical variables using Label Encoder
+    # Encode categorical variables using Label Encoder
     label_encoder = LabelEncoder()
     for column in data.columns:
         if data[column].dtype == 'object':
@@ -51,7 +49,7 @@ def train_model(data: pd.DataFrame):
     return model
 
 
-def print_model_with_kfold(data: pd.DataFrame, n_splits=30):
+def gbr_print_model_with_kfold(data: pd.DataFrame, n_splits=30):
     """
     Train a Gradient Boosting Regressor model using K-Fold Cross-Validation.
 
@@ -98,23 +96,3 @@ def print_model_with_kfold(data: pd.DataFrame, n_splits=30):
     print(f"Mean MSE: {np.mean(mse_scores)}")
     print(f"Mean RMSE: {np.mean(rmse_scores)}")
     print(f"Mean R²: {np.mean(r2_scores)}")
-
-
-
-def predict_price(model, input_attributes):
-    """
-    Predict the house price using the trained model and input attributes.
-
-    :param model: Trained model
-    :param input_attributes: Dictionary with input features
-    :return: Predicted price
-    """
-    # Create a DataFrame from the input attributes
-    input_data = pd.DataFrame([input_attributes])
-
-    # Ensure the column order matches the training data
-    input_data = input_data[model.feature_names_in_]
-
-    # Predict and return the house price
-    predicted_price = model.predict(input_data)
-    return predicted_price[0]  # Return a single value
