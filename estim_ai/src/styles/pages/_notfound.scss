@@ -1,0 +1,26 @@
+.notFound {
+    @include verticalCenter;
+    height: 95vh;
+    text-align: center;
+  
+    h3 {
+      color: #333;
+      margin-bottom: 3rem;
+      font-size: 2rem;
+    }
+    a {
+      color:black;
+      padding: 1rem 2rem;
+      
+      border-radius: $borderRadius;
+      background:var(--color-5);
+      transition: .1s;
+      span{
+        margin: .5rem;
+      }
+      &:hover {
+        color:white;
+        background: var(--color-bandeau-mid);
+      }
+    }
+  }

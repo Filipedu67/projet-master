@@ -1,0 +1,17 @@
+.informationContent {
+    background: var(--color-bg-content);
+    border-radius: $borderRadius;
+    width: 100%;  
+}
+
+@media screen and (max-width: 850px){
+  .informationContent {
+    margin: 0 !important;
+  }
+}
+
+@media screen and (max-width: 850px){
+    .informationContent {
+      margin: 0 !important;   
+    }
+  }

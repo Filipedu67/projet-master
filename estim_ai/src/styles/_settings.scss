@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Dossis:wght@800&family=Josefin+Sans:wght@100&family=Nova+Round&display=swap');
+
+$font-1:'Arial',cursive;
+$font-2:'Arial',sans-serif;
+$font-3:'Arial',serif;
+
+
+:root {
+  --background:#313131;
+  --color-title-1:#4D4D4D;
+  --color-title-2:#629C79;
+  --color-title-3:#748BAC;
+  --color-bg-nav-bar: #E8DCD0;
+  --color-bg-content: #FAEDE2;
+  --color-text-nav-sel: #736638;
+  --color-text-nav: #474747;
+  --color-theme:#60D360;
+  --color-sun:#F8B316;
+  --color-moon:#333;
+  --shadow-moon:none;
+  --margin-button:24px;
+
+}
+
+$borderRadius: 25px;
+$shadow: 0 1px 3px #f3f6fd;
+$min-height: 92.5vh;
+
+@mixin verticalCenter{
+  display : flex;
+  justify-content: center;
+  align-items: center;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body{
+  margin: 1em auto;
+  max-width: 80%;
+  font-family: $font-2;
+  color: var(--background);
+  background-color: var(--background);
+}
+
+button{
+  cursor: pointer;
+}
+
+li{
+  list-style-type: none;
+}
+
+a{
+  text-decoration: none;
+  color: var(--background);
+  cursor: pointer;
+}
+
+a:visited{
+  color: var(--background);
+}
+
+.estimation,.information,.historique,.notFound{
+  display: flex;
+
+  @media screen and (max-width:850px){
+    display: block !important;
+  }
+}
+
+.estimationContent,.informationContent,.historiqueContent,.notFoundContent{
+  margin-left: .4em;
+
+  @media screen and (max-width:850px){
+    margin-left: 0;
+  }
+}
+
+@media screen and (max-width:850px){
+  body{
+    margin: .5em auto;
+    max-width: 95%;
+  }
+}
+

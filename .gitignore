@@ -2,6 +2,11 @@
 data/
 .idea/*
 
+
+##########ESTIM AI#################
+
+estim_ai/node_modules/*
+
 ##############PYTHON########################
 
 # Byte-compiled / optimized / DLL files
