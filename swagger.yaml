@@ -1,21 +1,29 @@
-openai: 3.0.0
+openapi: 3.0.0
 info:
   title: Estim AI API
   version: 1.0.0
 tags:
   - name: dashboard
     description: ''
+  - name: property
+    description: ''
   - name: estimate
     description: ''
   - name: explorate
     description: ''
-
-path:
+paths:
   /dashboard:
     get:
       tags:
         - dashboard
       summary: Get a list of properties
+      parameters:
+        - name: user_id
+          in: header
+          required: true
+          schema:
+            type: integer
+          description: User id
       responses:
         '200':
           description: List of properties
@@ -25,3 +33,184 @@ path:
                 type: array
                 items:
                   $ref: '#/components/schemas/Dashboard'
+
+  /property:
+    get:
+      tags:
+        - property
+      summary: Get a list of properties
+      parameters:
+        - name: user_id
+          in: header
+          required: true
+          schema:
+            type: integer
+          description: User id
+      responses:
+        '200':
+          description: List of properties
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Property'
+    post:
+      tags:
+        - property
+      summary: Create a new property
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Property'
+      responses:
+        '201':
+          description: Property created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Property'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal server error
+  /property/{id}:
+    get:
+      tags:
+        - property
+      summary: Get a property by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Property id
+      responses:
+        '200':
+          description: Property details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Property'
+        '404':
+          description: Property not found
+        '500':
+          description: Internal server error
+    put:
+      tags:
+        - property
+      summary: Update a property by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Property id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Property'
+      responses:
+        '200':
+          description: Property updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Property'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal server error
+    delete:
+      tags:
+        - property
+      summary: Delete a property by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Property id
+      responses:
+        '204':
+          description: Property deleted successfully
+        '404':
+          description: Property not found
+        '500':
+          description: Internal server error
+
+
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    Dashboard:
+      type: object
+      properties:
+        id:
+          type: integer
+        user_id:
+          type: integer
+        property_type:
+          type: integer
+        location.lat:
+          type: number
+        location.lon:
+          type: number
+        city.department.code:
+          type: integer
+        elevator:
+          type: boolean
+        surface:
+          type: integer
+        bedroom:
+          type: integer
+        floor:
+          type: integer
+        furnished:
+          type: boolean
+        room:
+          type: integer
+
+
+    Property:
+      type: object
+      properties:
+        id:
+          type: integer
+        user_id:
+          type: integer
+        property_type:
+          type: integer
+        location.lat:
+          type: number
+        location.lon:
+          type: number
+        city.department.code:
+          type: integer
+        elevator:
+          type: boolean
+        surface:
+          type: integer
+        bedroom:
+          type: integer
+        floor:
+          type: integer
+        furnished:
+          type: boolean
+        room:
+          type: integer
+
+
+security:
+  - BearerAuth: [ ]
