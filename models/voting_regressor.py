@@ -1,10 +1,9 @@
 import pandas as pd
-from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.ensemble import GradientBoostingRegressor, RandomForestRegressor, VotingRegressor
 from sklearn.preprocessing import LabelEncoder
-import numpy as np
 
+from models.custom_methods import get_cv_scores, evaluate_model
 from preprocess.preprocess import COLUMN_TO_PREDICT
 
 
@@ -39,17 +38,9 @@ def voting_regressor_train_model(data: pd.DataFrame):
     # Train the Voting Regressor
     voting_regressor.fit(X_train, y_train)
 
-    # Evaluate the model
-    y_pred = voting_regressor.predict(X_test)
-    mse = mean_squared_error(y_test, y_pred)
-    rmse = np.sqrt(mse)
-    mae = mean_absolute_error(y_test, y_pred)
-    r2 = r2_score(y_test, y_pred)
+    get_cv_scores(voting_regressor, X_test, y_test)
 
-    # Print the metrics
-    print(f"Mean Absolute Error (MAE): {mae}")
-    print(f"Mean Squared Error (MSE): {mse}")
-    print(f"Root Mean Squared Error (RMSE): {rmse}")
-    print(f"R² score: {r2}")
+    # Model Evaluation:
+    evaluate_model(voting_regressor, X_test, y_test)
 
     return voting_regressor

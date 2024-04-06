@@ -3,12 +3,13 @@ supported_versions = ['1', '2']
 # data version to use
 # 1: original data
 # 2: valeurs foncieres data
-VERSION = 1
+VERSION = 2
 
 if VERSION == 1:
     COLUMN_TO_PREDICT = 'price'
 elif VERSION == 2:
-    COLUMN_TO_PREDICT = 'Valeur fonciere'
+    COLUMN_TO_PREDICT = 'valeur_fonciere'
+    #COLUMN_TO_PREDICT = 'Valeur fonciere'
 
 SUPPORTED_CITIES = [
     'bordeaux',
@@ -42,7 +43,20 @@ COLUMNS_TO_KEEP_V2 = ['Valeur fonciere', 'No voie', 'B/T/Q', 'Type de voie',
                       'Nature culture', 'Nature culture speciale']
 # Identifiant local
 
-# minimum and maximum price threshold
-PRICE_THRESHOLD = [50000, 300000]
+COLUMNS_TO_KEEP_V3 = ['valeur_fonciere',
+                      'type_local', 'surface_reelle_bati', 'nombre_pieces_principales',
+                      'surface_terrain', 'longitude', 'latitude']
 
-ADD_METRO_STATION = True
+# COLUMNS_TO_KEEP_V3 = ['valeur_fonciere', 'numero_disposition', 'adresse_numero',
+#                       'adresse_code_voie', 'code_postal', 'code_commune', 'numero_volume', 'nombre_lots',
+#                       'type_local', 'surface_reelle_bati', 'nombre_pieces_principales',
+#                       'surface_terrain', 'longitude', 'latitude']
+
+# 'nature_mutation', 'code_nature_culture'
+
+# minimum and maximum price threshold
+PRICE_THRESHOLD = [50000, 800000]
+
+ADD_METRO_STATION = False
+
+ENABLE_AI_DATA_SAVE = False

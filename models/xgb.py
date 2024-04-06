@@ -4,6 +4,7 @@ import xgboost as xgb
 import pandas as pd
 import numpy as np
 
+from models.custom_methods import get_cv_scores, evaluate_model
 from preprocess.preprocess import COLUMN_TO_PREDICT
 
 def xgb_train_model(data: pd.DataFrame):
@@ -26,18 +27,10 @@ def xgb_train_model(data: pd.DataFrame):
                              max_depth=5, alpha=10, n_estimators=10)
     model.fit(X_train, y_train, eval_set=[(X_test, y_test)], verbose=False)
 
-    # Model Evaluation:
-    y_pred = model.predict(X_test)
-    mse = mean_squared_error(y_test, y_pred)
-    rmse = np.sqrt(mse)
-    mae = mean_absolute_error(y_test, y_pred)
-    r2 = r2_score(y_test, y_pred)
+    get_cv_scores(model, X_test, y_test)
 
-    # Print the metrics
-    print(f"Mean Absolute Error (MAE): {mae}")
-    print(f"Mean Squared Error (MSE): {mse}")
-    print(f"Root Mean Squared Error (RMSE): {rmse}")
-    print(f"R² score: {r2}")
+    # Model Evaluation:
+    evaluate_model(model, X_test, y_test)
 
     return model
 
