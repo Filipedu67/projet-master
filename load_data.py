@@ -48,7 +48,7 @@ def load_csv_data(file_path):
         # Load the CSV file into a DataFrame
         # dtype={18: float, 23: float, 24: float, 26: float, 28: float, 29: float, 31: float, 32: float, 33: float, 41: float}
 
-        df = pd.read_csv(file_path, sep='|')
+        df = pd.read_csv(file_path, sep=',')
 
         df = correct_data_types_v2(df)
 

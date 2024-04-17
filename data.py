@@ -46,3 +46,5 @@ COLUMNS_TO_KEEP_V2 = ['Valeur fonciere', 'No voie', 'B/T/Q', 'Type de voie',
 PRICE_THRESHOLD = [50000, 300000]
 
 ADD_METRO_STATION = True
+
+LIMIT_PRICE = True

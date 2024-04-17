@@ -4,7 +4,7 @@ from math import radians, cos, sin, asin, sqrt
 
 from sklearn.preprocessing import LabelEncoder
 
-from data import COLUMN_TO_PREDICT
+from data import COLUMN_TO_PREDICT, LIMIT_PRICE
 from data import COLUMNS_TO_KEEP
 from data import COLUMNS_TO_KEEP_V2
 from data import PRICE_THRESHOLD
@@ -148,7 +148,8 @@ def preprocess_data(df: pandas.DataFrame, city: str) -> pandas.DataFrame:
     # Handle missing values by replacing them with the mean, empty string, or False
     df = handle_missing_values(df)
 
-    df = limit_price(df, PRICE_THRESHOLD)
+    if LIMIT_PRICE:
+        df = limit_price(df, PRICE_THRESHOLD)
 
     # Add extra attributes (e.g., distance to important places)
     df = add_distance_features(df, city)
@@ -194,7 +195,10 @@ def preprocess_data_v2(df: pandas.DataFrame) -> pandas.DataFrame:
     df = handle_missing_values_v2(df)
 
     # Limit the price of the properties to the given threshold
-    df = limit_price(df, PRICE_THRESHOLD)
+    if LIMIT_PRICE:
+        df = limit_price(df, PRICE_THRESHOLD)
+
+    # Limit to the given city
 
     # Convert strings to integers
     df = label_encode_data(df)

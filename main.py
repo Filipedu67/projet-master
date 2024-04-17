@@ -284,7 +284,7 @@ def main_v2():
             sys.exit(1)
 
     # get the valuers foncieres data path
-    file_path = f"data/valeursfoncieres-2023.csv"
+    file_path = f"data/valuersfoncieres_lille.csv"
 
     # Check if file exists
     try:
