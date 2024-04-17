@@ -1,4 +1,6 @@
 import json
+import os
+import pickle
 import sys
 
 from load_data import load_json_data, load_csv_data
@@ -160,30 +162,42 @@ def main():
             print(f"Model not supported yet for hyperparameter tuning")
             print('#############################################' + '\n')
 
-    print(f"Training model: {model_name}...")
 
-    # cleaned_df is now ready to be trained
-    # TODO: Add more models here
-    if model_name == 'gbr':
-        model = gbr_train_model(cleaned_df)
-    elif model_name == 'random_forest':
-        model = rf_train_model(cleaned_df)
-    elif model_name == 'nn':
-        model = nn_train_model(cleaned_df)
-    elif model_name == 'knn':
-        model = knn_train_model(cleaned_df)
-    elif model_name == 'lasso':
-        model = lasso_train_model(cleaned_df)
-    elif model_name == 'xgb':
-        model = xgb_train_model(cleaned_df)
-    elif model_name == 'voting_regressor':
-        model = voting_regressor_train_model(cleaned_df)
+    # Check if the model is already trained
+    filename = model_name + '.sav'
+
+    # If file does not exist, train the model
+    if not os.path.isfile(f'tmp_ai/{filename}'):
+        print(f"Training model: {model_name}...")
+        # cleaned_df is now ready to be trained
+        # TODO: Add more models here
+        if model_name == 'gbr':
+            model = gbr_train_model(cleaned_df)
+        elif model_name == 'random_forest':
+            model = rf_train_model(cleaned_df)
+        elif model_name == 'nn':
+            model = nn_train_model(cleaned_df)
+        elif model_name == 'knn':
+            model = knn_train_model(cleaned_df)
+        elif model_name == 'lasso':
+            model = lasso_train_model(cleaned_df)
+        elif model_name == 'xgb':
+            model = xgb_train_model(cleaned_df)
+        elif model_name == 'voting_regressor':
+            model = voting_regressor_train_model(cleaned_df)
+        else:
+            print(f"Model not supported, please use one of the following: {', '.join(supported_models)}")
+            sys.exit(1)
+
+        save_model_to_file(filename, model)
+
+        print(f"Trained model: {model_name}")
+        print('#############################################' + '\n')
     else:
-        print(f"Model not supported, please use one of the following: {', '.join(supported_models)}")
-        sys.exit(1)
+        print(f"Model already trained: {model_name}. Loading from file...")
+        print('#############################################' + '\n')
+        model = load_model_from_file(filename)
 
-    print(f"Trained model: {model_name}")
-    print('#############################################' + '\n')
 
     # Use KFold Cross Validation to calculate mean, precision, etc.
     # TODO: Add more models here
@@ -326,28 +340,40 @@ def main_v2():
             print(f"Model not supported yet for hyperparameter tuning")
             print('#############################################' + '\n')
 
-    print(f"Training model: {model_name}...")
+    # Check if the model is already trained
+    filename = model_name + '.sav'
 
-    # cleaned_df is now ready to be trained
-    # TODO: Add more models here
-    if model_name == 'gbr':
-        model = gbr_train_model(cleaned_df)
-    elif model_name == 'random_forest':
-        model = rf_train_model(cleaned_df)
-    elif model_name == 'nn':
-        model = nn_train_model(cleaned_df)
-    elif model_name == 'knn':
-        model = knn_train_model(cleaned_df)
-    elif model_name == 'lasso':
-        model = lasso_train_model(cleaned_df)
-    elif model_name == 'xgb':
-        model = xgb_train_model(cleaned_df)
+    # If file does not exist, train the model
+    if not os.path.isfile(f'tmp_ai/{filename}'):
+        print(f"Training model: {model_name}...")
+
+        # cleaned_df is now ready to be trained
+        # TODO: Add more models here
+        if model_name == 'gbr':
+            model = gbr_train_model(cleaned_df)
+        elif model_name == 'random_forest':
+            model = rf_train_model(cleaned_df)
+        elif model_name == 'nn':
+            model = nn_train_model(cleaned_df)
+        elif model_name == 'knn':
+            model = knn_train_model(cleaned_df)
+        elif model_name == 'lasso':
+            model = lasso_train_model(cleaned_df)
+        elif model_name == 'xgb':
+            model = xgb_train_model(cleaned_df)
+        else:
+            print(f"Model not supported, please use one of the following: {', '.join(supported_models)}")
+            sys.exit(1)
+
+        print(f"Trained model: {model_name}")
+        print('#############################################' + '\n')
+
+        save_model_to_file(filename, model)
+
     else:
-        print(f"Model not supported, please use one of the following: {', '.join(supported_models)}")
-        sys.exit(1)
-
-    print(f"Trained model: {model_name}")
-    print('#############################################' + '\n')
+        print(f"Model already trained: {model_name}. Loading from file...")
+        print('#############################################' + '\n')
+        model = load_model_from_file(filename)
 
     # Use KFold Cross Validation to calculate mean, precision, etc.
     # TODO: Add more models here
@@ -370,6 +396,26 @@ def main_v2():
             sys.exit(1)
         print('#############################################' + '\n')
 
+
+def save_model_to_file(filename, clf):
+    # create tmp_ai folder if it doesn't exist in the current directory
+    if not os.path.exists('tmp_ai'):
+        os.makedirs('tmp_ai')
+
+    with open(f'tmp_ai/{filename}', 'wb') as fout:
+        pickle.dump(clf, fout)
+        print("Model saved to " + f'tmp_ai/{filename}')
+
+
+def load_model_from_file(filename):
+    # create tmp_ai folder if it doesn't exist in the current directory
+    if not os.path.exists('tmp_ai'):
+        os.makedirs('tmp_ai')
+
+    print("Loading model from tmp_ai/" + filename)
+    with open(f'tmp_ai/{filename}', 'rb') as f:
+        clf = pickle.load(f)
+        return clf
 
 if __name__ == "__main__":
     if VERSION == 1:
