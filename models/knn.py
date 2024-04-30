@@ -5,6 +5,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import LabelEncoder
 import numpy as np
 
+from models.custom_methods import get_cv_scores, evaluate_model
 from preprocess.preprocess import COLUMN_TO_PREDICT
 
 def knn_train_model(data: pd.DataFrame, k=10):
@@ -23,19 +24,10 @@ def knn_train_model(data: pd.DataFrame, k=10):
     model = KNeighborsClassifier(n_neighbors=k)
     model.fit(X_train, y_train)
 
-    # Model Evaluation:
-    y_pred = model.predict(X_test)
-    mse = mean_squared_error(y_test, y_pred)
-    rmse = np.sqrt(mse)
-    mae = mean_absolute_error(y_test, y_pred)
-    r2 = r2_score(y_test, y_pred)
+    get_cv_scores(model, X_test, y_test)
 
-    # Print the metrics
-    print(f"Score (R²): {model.score(X_test, y_test)}")
-    print(f"Mean Absolute Error (MAE): {mae}")
-    print(f"Mean Squared Error (MSE): {mse}")
-    print(f"Root Mean Squared Error (RMSE): {rmse}")
-    print(f"R² score: {r2}")
+    # Model Evaluation:
+    evaluate_model(model, X_test, y_test)
 
     return model
 

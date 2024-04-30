@@ -37,18 +37,19 @@ def load_json_data(file_path):
         print(f"An error occurred: {e}")
 
 
-def load_csv_data(file_path):
+def load_csv_data(file_path, separator=','):
     """
     Loads a CSV file into a pandas DataFrame.
 
     :param file_path: Path to the CSV file
+    :param separator: Separator used in the CSV file
     :return: pandas DataFrame containing the data
     """
     try:
         # Load the CSV file into a DataFrame
         # dtype={18: float, 23: float, 24: float, 26: float, 28: float, 29: float, 31: float, 32: float, 33: float, 41: float}
 
-        df = pd.read_csv(file_path, sep=',')
+        df = pd.read_csv(file_path, sep=separator)
 
         df = correct_data_types_v2(df)
 
@@ -67,87 +68,154 @@ def correct_data_types_v2(df: pandas.DataFrame) -> pandas.DataFrame:
     :param df: pandas DataFrame
     :return: pandas DataFrame with corrected data types
     """
-    df['No disposition'] = pd.to_numeric(df['No disposition'], errors='coerce')
 
-    df['Date mutation'] = df['Date mutation'].astype(str)
+    if 'No disposition' in df.columns:
+        df['No disposition'] = pd.to_numeric(df['No disposition'], errors='coerce')
 
-    df['Date mutation'] = pd.to_datetime(df['Date mutation'], errors='coerce', utc=True)
+    if 'Date mutation' in df.columns:
+        df['Date mutation'] = df['Date mutation'].astype(str)
+
+    if 'Date mutation' in df.columns:
+        df['Date mutation'] = pd.to_datetime(df['Date mutation'], errors='coerce', utc=True)
 
     if 'Valeur fonciere' in df.columns:
         df['Valeur fonciere'] = df['Valeur fonciere'].replace('[^0-9.-]', '', regex=True)
         df['Valeur fonciere'] = df['Valeur fonciere'].str.replace(',', '.').astype(float)
 
-    df['Valeur fonciere'] = pd.to_numeric(df['Valeur fonciere'], errors='coerce')
+    if 'Valeur fonciere' in df.columns:
+        df['Valeur fonciere'] = pd.to_numeric(df['Valeur fonciere'], errors='coerce')
 
-    df['No voie'] = pd.to_numeric(df['No voie'], errors='coerce')
+    if 'No voie' in df.columns:
+        df['No voie'] = pd.to_numeric(df['No voie'], errors='coerce')
 
-    df['B/T/Q'] = df['B/T/Q'].astype(str)
+    if 'B/T/Q' in df.columns:
+        df['B/T/Q'] = df['B/T/Q'].astype(str)
 
-    df['Type de voie'] = df['Type de voie'].astype(str)
+    if 'Type de voie' in df.columns:
+        df['Type de voie'] = df['Type de voie'].astype(str)
 
-    df['Code voie'] = df['Code voie'].astype(str)
+    if 'Code voie' in df.columns:
+        df['Code voie'] = df['Code voie'].astype(str)
 
-    df['Voie'] = df['Voie'].astype(str)
+    if 'Voie' in df.columns:
+        df['Voie'] = df['Voie'].astype(str)
 
-    df['Code postal'] = pd.to_numeric(df['Code postal'], errors='coerce')
+    if 'Code postal' in df.columns:
+        df['Code postal'] = pd.to_numeric(df['Code postal'], errors='coerce')
 
-    df['Commune'] = df['Commune'].astype(str)
+    if 'Commune' in df.columns:
+        df['Commune'] = df['Commune'].astype(str)
 
-    df['Code departement'] = pd.to_numeric(df['Code departement'], errors='coerce')
+    if 'Code departement' in df.columns:
+        df['Code departement'] = pd.to_numeric(df['Code departement'], errors='coerce')
 
-    df['Code commune'] = pd.to_numeric(df['Code commune'], errors='coerce')
+    if 'Code commune' in df.columns:
+        df['Code commune'] = pd.to_numeric(df['Code commune'], errors='coerce')
 
-    df['Section'] = df['Section'].astype(str)
+    if 'Section' in df.columns:
+        df['Section'] = df['Section'].astype(str)
 
-    df['No plan'] = pd.to_numeric(df['No plan'], errors='coerce')
+    if 'No plan' in df.columns:
+        df['No plan'] = pd.to_numeric(df['No plan'], errors='coerce')
 
-    # NOTE: There is a type mismatch here...
-    # The column is float but there are string values
-    df['No Volume'] = df['No Volume'].astype(str)
+    if 'No Volume' in df.columns:
+        df['No Volume'] = df['No Volume'].astype(str)
 
-    # NOTE: There is a type mismatch here...
-    # The column is float but there are string values
-    df['1er lot'] = pd.to_numeric(df['1er lot'], errors='coerce')
+    if '1er lot' in df.columns:
+        df['1er lot'] = pd.to_numeric(df['1er lot'], errors='coerce')
 
-    df['Surface Carrez du 1er lot'] = pd.to_numeric(df['Surface Carrez du 1er lot'], errors='coerce')
+    if 'Surface Carrez du 1er lot' in df.columns:
+        df['Surface Carrez du 1er lot'] = pd.to_numeric(df['Surface Carrez du 1er lot'], errors='coerce')
 
-    # NOTE: There is a type mismatch here...
-    # The column is float but there are string values
-    df['2eme lot'] = pd.to_numeric(df['2eme lot'], errors='coerce')
+    if '2eme lot' in df.columns:
+        df['2eme lot'] = pd.to_numeric(df['2eme lot'], errors='coerce')
 
-    df['Surface Carrez du 2eme lot'] = pd.to_numeric(df['Surface Carrez du 2eme lot'], errors='coerce')
+    if 'Surface Carrez du 2eme lot' in df.columns:
+        df['Surface Carrez du 2eme lot'] = pd.to_numeric(df['Surface Carrez du 2eme lot'], errors='coerce')
 
-    # NOTE: There is a type mismatch here...
-    # The column is float but there are string values
-    df['3eme lot'] = pd.to_numeric(df['3eme lot'], errors='coerce')
+    if '3eme lot' in df.columns:
+        df['3eme lot'] = pd.to_numeric(df['3eme lot'], errors='coerce')
 
-    df['Surface Carrez du 3eme lot'] = pd.to_numeric(df['Surface Carrez du 3eme lot'], errors='coerce')
+    if 'Surface Carrez du 3eme lot' in df.columns:
+        df['Surface Carrez du 3eme lot'] = pd.to_numeric(df['Surface Carrez du 3eme lot'], errors='coerce')
 
-    df['4eme lot'] = pd.to_numeric(df['4eme lot'], errors='coerce')
+    if '4eme lot' in df.columns:
+        df['4eme lot'] = pd.to_numeric(df['4eme lot'], errors='coerce')
 
-    df['Surface Carrez du 4eme lot'] = pd.to_numeric(df['Surface Carrez du 4eme lot'], errors='coerce')
+    if 'Surface Carrez du 4eme lot' in df.columns:
+        df['Surface Carrez du 4eme lot'] = pd.to_numeric(df['Surface Carrez du 4eme lot'], errors='coerce')
 
-    # NOTE: There is a type mismatch here...
-    # The column is float but there are string values
-    df['5eme lot'] = pd.to_numeric(df['5eme lot'], errors='coerce')
+    if '5eme lot' in df.columns:
+        df['5eme lot'] = pd.to_numeric(df['5eme lot'], errors='coerce')
 
-    df['Surface Carrez du 5eme lot'] = pd.to_numeric(df['Surface Carrez du 5eme lot'], errors='coerce')
+    if 'Surface Carrez du 5eme lot' in df.columns:
+        df['Surface Carrez du 5eme lot'] = pd.to_numeric(df['Surface Carrez du 5eme lot'], errors='coerce')
 
-    df['Nombre de lots'] = pd.to_numeric(df['Nombre de lots'], errors='coerce')
+    if 'Nombre de lots' in df.columns:
+        df['Nombre de lots'] = pd.to_numeric(df['Nombre de lots'], errors='coerce')
 
-    df['Code type local'] = pd.to_numeric(df['Code type local'], errors='coerce')
+    if 'Code type local' in df.columns:
+        df['Code type local'] = pd.to_numeric(df['Code type local'], errors='coerce')
 
-    df['Type local'] = df['Type local'].astype(str)
+    if 'Type local' in df.columns:
+        df['Type local'] = df['Type local'].astype(str)
 
-    df['Surface reelle bati'] = pd.to_numeric(df['Surface reelle bati'], errors='coerce')
+    if 'Surface reelle bati' in df.columns:
+        df['Surface reelle bati'] = pd.to_numeric(df['Surface reelle bati'], errors='coerce')
 
-    df['Nombre pieces principales'] = pd.to_numeric(df['Nombre pieces principales'], errors='coerce')
+    if 'Nombre pieces principales' in df.columns:
+        df['Nombre pieces principales'] = pd.to_numeric(df['Nombre pieces principales'], errors='coerce')
 
-    df['Nature culture'] = df['Nature culture'].astype(str)
+    if 'Nature culture' in df.columns:
+        df['Nature culture'] = df['Nature culture'].astype(str)
 
-    df['Nature culture speciale'] = df['Nature culture speciale'].astype(str)
+    if 'Nature culture speciale' in df.columns:
+        df['Nature culture speciale'] = df['Nature culture speciale'].astype(str)
 
-    df['Surface terrain'] = pd.to_numeric(df['Surface terrain'], errors='coerce')
+    if 'Surface terrain' in df.columns:
+        df['Surface terrain'] = pd.to_numeric(df['Surface terrain'], errors='coerce')
+
+    if 'valeur_fonciere' in df.columns:
+        df['valeur_fonciere'] = pd.to_numeric(df['valeur_fonciere'], errors='coerce')
+
+    if 'numero_disposition' in df.columns:
+        df['numero_disposition'] = pd.to_numeric(df['numero_disposition'], errors='coerce')
+
+    if 'adresse_numero' in df.columns:
+        df['adresse_numero'] = pd.to_numeric(df['adresse_numero'], errors='coerce')
+
+    if 'adresse_code_voie' in df.columns:
+        df['adresse_code_voie'] = pd.to_numeric(df['adresse_code_voie'], errors='coerce', downcast='integer')
+
+    if 'code_postal' in df.columns:
+        df['code_postal'] = pd.to_numeric(df['code_postal'], errors='coerce')
+
+    if 'code_commune' in df.columns:
+        df['code_commune'] = pd.to_numeric(df['code_commune'], errors='coerce', downcast='integer')
+
+    if 'numero_volume' in df.columns:
+        df['numero_volume'] = pd.to_numeric(df['numero_volume'], errors='coerce', downcast='integer')
+
+    if 'nombre_lots' in df.columns:
+        df['nombre_lots'] = pd.to_numeric(df['nombre_lots'], errors='coerce')
+
+    if 'type_local' in df.columns:
+        df['type_local'] = df['type_local'].astype(str)  # Keeping type_local as string
+
+    if 'surface_reelle_bati' in df.columns:
+        df['surface_reelle_bati'] = pd.to_numeric(df['surface_reelle_bati'], errors='coerce')
+
+    if 'nombre_pieces_principales' in df.columns:
+        df['nombre_pieces_principales'] = pd.to_numeric(df['nombre_pieces_principales'], errors='coerce')
+
+    if 'surface_terrain' in df.columns:
+        df['surface_terrain'] = pd.to_numeric(df['surface_terrain'], errors='coerce')
+
+    if 'longitude' in df.columns:
+        df['longitude'] = pd.to_numeric(df['longitude'], errors='coerce')
+
+    if 'latitude' in df.columns:
+        df['latitude'] = pd.to_numeric(df['latitude'], errors='coerce')
 
     return df
 

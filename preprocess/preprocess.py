@@ -7,6 +7,7 @@ from sklearn.preprocessing import LabelEncoder
 from data import COLUMN_TO_PREDICT, LIMIT_PRICE
 from data import COLUMNS_TO_KEEP
 from data import COLUMNS_TO_KEEP_V2
+from data import COLUMNS_TO_KEEP_V3
 from data import PRICE_THRESHOLD
 from data import ADD_METRO_STATION
 
@@ -189,7 +190,7 @@ def preprocess_data_v2(df: pandas.DataFrame) -> pandas.DataFrame:
     """
     # Starting data clean up
 
-    df = filter_columns(df, COLUMNS_TO_KEEP_V2)
+    df = filter_columns(df, COLUMNS_TO_KEEP_V3)
 
     # Handle missing values by replacing them with the mean, empty string, or False
     df = handle_missing_values_v2(df)
@@ -228,6 +229,7 @@ def label_encode_data(df: pandas.DataFrame) -> pandas.DataFrame:
     section = LabelEncoder()
     nature_culture = LabelEncoder()
     nature_culture_speciale = LabelEncoder()
+    type_local_v2 = LabelEncoder()
 
     # Fit and transform the data using .loc for explicit in-place modification
     if 'Nature mutation' in df.columns:
@@ -259,6 +261,9 @@ def label_encode_data(df: pandas.DataFrame) -> pandas.DataFrame:
 
     if 'Nature culture speciale' in df.columns:
         df.loc[:, 'Nature culture speciale'] = nature_culture_speciale.fit_transform(df['Nature culture speciale'])
+
+    if 'type_local' in df.columns:
+        df.loc[:, 'type_local'] = type_local_v2.fit_transform(df['type_local'])
 
     return df
 
@@ -546,7 +551,7 @@ def handle_missing_values_v2(df: pandas.DataFrame) -> pandas.DataFrame:
     initial_row_count = len(df)
 
     # Delete rows where 'Valeur fonciere' is NaN
-    df = df.dropna(subset=['Valeur fonciere'])
+    df = df.dropna(subset=[COLUMN_TO_PREDICT])
 
     # Count rows after deletion to calculate the number of deleted rows
     final_row_count = len(df)

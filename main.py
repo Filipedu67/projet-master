@@ -30,7 +30,7 @@ from models.lasso import lasso_tune_hyper_parameters
 
 from preprocess.preprocess import get_extra_attributes
 
-from data import SUPPORTED_CITIES
+from data import SUPPORTED_CITIES, ENABLE_AI_DATA_SAVE
 from data import VERSION
 
 # dataset to use
@@ -189,7 +189,8 @@ def main():
             print(f"Model not supported, please use one of the following: {', '.join(supported_models)}")
             sys.exit(1)
 
-        save_model_to_file(filename, model)
+        if ENABLE_AI_DATA_SAVE:
+            save_model_to_file(filename, model)
 
         print(f"Trained model: {model_name}")
         print('#############################################' + '\n')
@@ -298,7 +299,7 @@ def main_v2():
             sys.exit(1)
 
     # get the valuers foncieres data path
-    file_path = f"data/valuersfoncieres_lille.csv"
+    file_path = f"data/valeursfoncieres-2023_lille.csv"
 
     # Check if file exists
     try:
@@ -310,7 +311,8 @@ def main_v2():
     print(f"Using data file: {file_path}")
     print('#############################################' + '\n')
 
-    df = load_csv_data(file_path)
+    #TODO: Attention to the separator, check the data file
+    df = load_csv_data(file_path, separator=',')
 
     print(f"Loaded data {file_path}")
     print('#############################################' + '\n')
@@ -368,7 +370,8 @@ def main_v2():
         print(f"Trained model: {model_name}")
         print('#############################################' + '\n')
 
-        save_model_to_file(filename, model)
+        if ENABLE_AI_DATA_SAVE:
+            save_model_to_file(filename, model)
 
     else:
         print(f"Model already trained: {model_name}. Loading from file...")
