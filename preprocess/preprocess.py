@@ -1,10 +1,11 @@
 import pandas
 import pandas as pd
+import numpy as np
 from math import radians, cos, sin, asin, sqrt
 
 from sklearn.preprocessing import LabelEncoder
 
-from data import COLUMN_TO_PREDICT, LIMIT_PRICE, ADD_IMPORTANT_PLACES
+from data import COLUMN_TO_PREDICT, LIMIT_PRICE, ADD_IMPORTANT_PLACES, ADD_RANDOM_NUMBER
 from data import COLUMNS_TO_KEEP
 from data import COLUMNS_TO_KEEP_V2
 from data import COLUMNS_TO_KEEP_V3
@@ -153,7 +154,12 @@ def preprocess_data(df: pandas.DataFrame, city: str) -> pandas.DataFrame:
         df = limit_price(df, PRICE_THRESHOLD)
 
     # Add extra attributes (e.g., distance to important places)
-    df = add_distance_features(df, city)
+    if ADD_IMPORTANT_PLACES:
+        df = add_distance_features(df, city, 'location.lon', 'location.lat')
+
+    # Add a column with a random value
+    if ADD_RANDOM_NUMBER:
+        df = add_random_number(df)
 
     # Print rows with null or NaN values
     print_rows_with_nulls(df)
@@ -206,14 +212,30 @@ def preprocess_data_v2(df: pandas.DataFrame, city: str) -> pandas.DataFrame:
 
     # Add extra attributes (e.g., distance to important places)
     if ADD_IMPORTANT_PLACES:
-        df = add_distance_features_v2(df, city)
+        df = add_distance_features(df, city, 'longitude', 'latitude')
 
     # Print rows with null or NaN values
     print_rows_with_nulls(df)
 
+    # Add a column with a random value
+    if ADD_RANDOM_NUMBER:
+        df = add_random_number(df)
+
     # end of cleaning up the data
     return df
 
+
+def add_random_number(df: pandas.DataFrame) -> pandas.DataFrame:
+    """
+    Add a column with random values to the DataFrame.
+    :param df: pandas DataFrame containing the data.
+    :return: pandas DataFrame with a column of random values added.
+    """
+
+    # Add a column with random values
+    df['random'] = np.random.randint(0, 100, df.shape[0])
+
+    return df
 
 def label_encode_data(df: pandas.DataFrame) -> pandas.DataFrame:
     """
@@ -484,7 +506,30 @@ def get_extra_attributes(input_attributes, city):
     return input_attributes
 
 
-def add_distance_features(df: pd.DataFrame, city: str):
+# def add_distance_features(df: pd.DataFrame, city: str):
+#     """
+#     Add distance features to the DataFrame.
+#     :param df: pandas DataFrame containing the data.
+#     :param city: Name of the city.
+#     :return: pandas DataFrame with distance features added.
+#     """
+#     # Coordinates for important places in Paris
+#     important_places = get_important_places(city)
+#
+#     if important_places is not None:
+#         # Iterate over each important place
+#         for place, (lat, lon) in important_places.items():
+#             # Calculate the distance from the place to each property and create a new column for it
+#             df[f'distance.{place}'] = (df
+#                                        .apply(lambda row: haversine(lon, lat, row['location.lon'], row['location.lat']),
+#                                               axis=1))
+#     else:
+#         print('no important places found')
+#
+#     return df
+
+
+def add_distance_features(df: pd.DataFrame, city: str, long_row_name='longitude', lat_row_name='latitude'):
     """
     Add distance features to the DataFrame.
     :param df: pandas DataFrame containing the data.
@@ -499,29 +544,7 @@ def add_distance_features(df: pd.DataFrame, city: str):
         for place, (lat, lon) in important_places.items():
             # Calculate the distance from the place to each property and create a new column for it
             df[f'distance.{place}'] = (df
-                                       .apply(lambda row: haversine(lon, lat, row['location.lon'], row['location.lat']),
-                                              axis=1))
-    else:
-        print('no important places found')
-
-    return df
-
-def add_distance_features_v2(df: pd.DataFrame, city: str):
-    """
-    Add distance features to the DataFrame.
-    :param df: pandas DataFrame containing the data.
-    :param city: Name of the city.
-    :return: pandas DataFrame with distance features added.
-    """
-    # Coordinates for important places in Paris
-    important_places = get_important_places(city)
-
-    if important_places is not None:
-        # Iterate over each important place
-        for place, (lat, lon) in important_places.items():
-            # Calculate the distance from the place to each property and create a new column for it
-            df[f'distance.{place}'] = (df
-                                       .apply(lambda row: haversine(lon, lat, row['longitude'], row['latitude']),
+                                       .apply(lambda row: haversine(lon, lat, row[long_row_name], row[lat_row_name]),
                                               axis=1))
     else:
         print('no important places found')

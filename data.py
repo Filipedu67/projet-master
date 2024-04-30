@@ -3,7 +3,7 @@ supported_versions = ['1', '2']
 # data version to use
 # 1: original data
 # 2: valeurs foncieres data
-VERSION = 2
+VERSION = 1
 
 if VERSION == 1:
     COLUMN_TO_PREDICT = 'price'
@@ -43,24 +43,26 @@ COLUMNS_TO_KEEP_V2 = ['Valeur fonciere', 'No voie', 'B/T/Q', 'Type de voie',
                       'Nature culture', 'Nature culture speciale']
 # Identifiant local
 
-COLUMNS_TO_KEEP_V3 = ['valeur_fonciere',
-                      'type_local', 'surface_reelle_bati', 'nombre_pieces_principales',
-                      'surface_terrain', 'longitude', 'latitude']
-
-# COLUMNS_TO_KEEP_V3 = ['valeur_fonciere', 'numero_disposition', 'adresse_numero',
-#                       'adresse_code_voie', 'code_postal', 'code_commune', 'numero_volume', 'nombre_lots',
+# COLUMNS_TO_KEEP_V3 = ['valeur_fonciere',
 #                       'type_local', 'surface_reelle_bati', 'nombre_pieces_principales',
 #                       'surface_terrain', 'longitude', 'latitude']
+
+COLUMNS_TO_KEEP_V3 = ['valeur_fonciere', 'surface_reelle_bati', 'nombre_pieces_principales',
+                      'surface_terrain', 'longitude', 'latitude', 'nature_mutation',
+                      'adresse_numero', 'adresse_code_voie', 'code_postal', 'code_type_local']
 
 # 'nature_mutation', 'code_nature_culture'
 
 # minimum and maximum price threshold
 PRICE_THRESHOLD = [50000, 400000]
 
+# Attention, enabling this option will increase the training time
 ADD_METRO_STATION = False
 
 # Attention, enabling this option will increase the training time
-ADD_IMPORTANT_PLACES = False
+ADD_IMPORTANT_PLACES = True
+
+ADD_RANDOM_NUMBER = True
 
 ENABLE_AI_DATA_SAVE = False
 
