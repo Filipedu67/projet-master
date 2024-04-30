@@ -4,7 +4,7 @@ from math import radians, cos, sin, asin, sqrt
 
 from sklearn.preprocessing import LabelEncoder
 
-from data import COLUMN_TO_PREDICT, LIMIT_PRICE
+from data import COLUMN_TO_PREDICT, LIMIT_PRICE, ADD_IMPORTANT_PLACES
 from data import COLUMNS_TO_KEEP
 from data import COLUMNS_TO_KEEP_V2
 from data import COLUMNS_TO_KEEP_V3
@@ -181,7 +181,7 @@ def limit_price(df: pandas.DataFrame, threshold: list) -> pandas.DataFrame:
     return df
 
 
-def preprocess_data_v2(df: pandas.DataFrame) -> pandas.DataFrame:
+def preprocess_data_v2(df: pandas.DataFrame, city: str) -> pandas.DataFrame:
     """
     Preprocess the data by cleaning it up and adding new features.
     :param df: pandas DataFrame containing the data.
@@ -203,6 +203,10 @@ def preprocess_data_v2(df: pandas.DataFrame) -> pandas.DataFrame:
 
     # Convert strings to integers
     df = label_encode_data(df)
+
+    # Add extra attributes (e.g., distance to important places)
+    if ADD_IMPORTANT_PLACES:
+        df = add_distance_features_v2(df, city)
 
     # Print rows with null or NaN values
     print_rows_with_nulls(df)
@@ -496,6 +500,28 @@ def add_distance_features(df: pd.DataFrame, city: str):
             # Calculate the distance from the place to each property and create a new column for it
             df[f'distance.{place}'] = (df
                                        .apply(lambda row: haversine(lon, lat, row['location.lon'], row['location.lat']),
+                                              axis=1))
+    else:
+        print('no important places found')
+
+    return df
+
+def add_distance_features_v2(df: pd.DataFrame, city: str):
+    """
+    Add distance features to the DataFrame.
+    :param df: pandas DataFrame containing the data.
+    :param city: Name of the city.
+    :return: pandas DataFrame with distance features added.
+    """
+    # Coordinates for important places in Paris
+    important_places = get_important_places(city)
+
+    if important_places is not None:
+        # Iterate over each important place
+        for place, (lat, lon) in important_places.items():
+            # Calculate the distance from the place to each property and create a new column for it
+            df[f'distance.{place}'] = (df
+                                       .apply(lambda row: haversine(lon, lat, row['longitude'], row['latitude']),
                                               axis=1))
     else:
         print('no important places found')

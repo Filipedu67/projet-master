@@ -317,7 +317,8 @@ def main_v2():
     print(f"Loaded data {file_path}")
     print('#############################################' + '\n')
 
-    cleaned_df = preprocess_data_v2(df)
+    city = 'lille'
+    cleaned_df = preprocess_data_v2(df, city)
 
     print(f"Preprocessed data {file_path}")
     print('#############################################' + '\n')

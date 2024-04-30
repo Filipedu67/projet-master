@@ -55,9 +55,12 @@ COLUMNS_TO_KEEP_V3 = ['valeur_fonciere',
 # 'nature_mutation', 'code_nature_culture'
 
 # minimum and maximum price threshold
-PRICE_THRESHOLD = [50000, 800000]
+PRICE_THRESHOLD = [50000, 400000]
 
 ADD_METRO_STATION = False
+
+# Attention, enabling this option will increase the training time
+ADD_IMPORTANT_PLACES = False
 
 ENABLE_AI_DATA_SAVE = False
 
