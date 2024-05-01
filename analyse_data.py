@@ -61,11 +61,11 @@ def analyse(df: pandas.DataFrame) -> None:
 
     # Assuming `df` is your DataFrame and it has 'lat', 'lon', and 'price' columns
 
-    show_scatter_mapbox(df)
+    show_scatter_mapbox(df, 'location.lat', 'location.lon', COLUMN_TO_PREDICT)
 
 
-def show_scatter_mapbox(df: pandas.DataFrame):
-    fig = px.scatter_mapbox(df, lat="location.lat", lon="location.lon", color="price", size="price",
+def show_scatter_mapbox(df: pandas.DataFrame, lat_col='location.lat', lon_col='location.lon', color_col='price') -> None:
+    fig = px.scatter_mapbox(df, lat=lat_col, lon=lon_col, color=color_col, size=color_col,
                             color_continuous_scale=px.colors.cyclical.IceFire, size_max=15, zoom=10,
                             mapbox_style="carto-positron")
     fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
@@ -81,13 +81,21 @@ def analyse_v2(df: pandas.DataFrame) -> None:
     # Calculating mean, median for price and surface
     print("Mean Valeurs fonciere:", df[COLUMN_TO_PREDICT].mean())
     print("Median Valeurs fonciere:", df[COLUMN_TO_PREDICT].median())
-    print("Mean Surface reelle bati:", df['Surface reelle bati'].mean())
-    print("Median Surface reelle bati:", df['Surface reelle bati'].median())
+    print("Mean Surface reelle bati:", df['surface_reelle_bati'].mean())
+    print("Median Surface reelle bati:", df['surface_reelle_bati'].median())
 
-    sns.boxplot(x='Surface reelle bati', y=COLUMN_TO_PREDICT, data=df)
+    sns.boxplot(x='surface_reelle_bati', y=COLUMN_TO_PREDICT, data=df)
     plt.title('Price Distribution by Surface reelle bati')
     plt.show()
 
-    sns.boxplot(x='Type local', y=COLUMN_TO_PREDICT, data=df)
+    sns.boxplot(x='code_type_local', y=COLUMN_TO_PREDICT, data=df)
     plt.title('Price Distribution by Type local')
     plt.show()
+
+    sns.scatterplot(x='longitude', y='latitude', size=COLUMN_TO_PREDICT, hue=COLUMN_TO_PREDICT, data=df)
+    plt.title('Price Distribution by Location')
+    plt.xlabel('Longitude')
+    plt.ylabel('Latitude')
+    plt.show()
+
+    show_scatter_mapbox(df, 'latitude', 'longitude', COLUMN_TO_PREDICT)
