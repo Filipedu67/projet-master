@@ -7,7 +7,6 @@ from sklearn.preprocessing import LabelEncoder
 
 from data import COLUMN_TO_PREDICT, LIMIT_PRICE, ADD_IMPORTANT_PLACES, ADD_RANDOM_NUMBER
 from data import COLUMNS_TO_KEEP
-from data import COLUMNS_TO_KEEP_V2
 from data import COLUMNS_TO_KEEP_V3
 from data import PRICE_THRESHOLD
 from data import ADD_METRO_STATION
@@ -256,6 +255,7 @@ def label_encode_data(df: pandas.DataFrame) -> pandas.DataFrame:
     nature_culture = LabelEncoder()
     nature_culture_speciale = LabelEncoder()
     type_local_v2 = LabelEncoder()
+    nature_mutation_v2 = LabelEncoder()
 
     # Fit and transform the data using .loc for explicit in-place modification
     if 'Nature mutation' in df.columns:
@@ -290,6 +290,9 @@ def label_encode_data(df: pandas.DataFrame) -> pandas.DataFrame:
 
     if 'type_local' in df.columns:
         df.loc[:, 'type_local'] = type_local_v2.fit_transform(df['type_local'])
+
+    if 'nature_mutation' in df.columns:
+        df.loc[:, 'nature_mutation'] = nature_mutation_v2.fit_transform(df['nature_mutation'])
 
     return df
 
