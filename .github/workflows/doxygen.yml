@@ -1,0 +1,22 @@
+name: Generate Doxygen Documentation
+
+on:
+  push:
+    branches:
+      - main  # Set this to the branch you use
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install Doxygen
+      run: sudo apt-get install doxygen
+    - name: Generate Documentation
+      run: doxygen Doxyfile
+    - name: Upload Documentation to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./html  # Set this to your Doxygen output directory
