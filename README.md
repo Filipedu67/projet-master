@@ -8,7 +8,7 @@ Professor : Julien GOSSA
 
 A project to estimate house prices using AI models. This project is part of the Master Project SIL at the University of Strasbourg.
 
-Github pages link for code documentation can be found [here](https://filipedu67.github.io/projet-master/html/).
+Github pages link for code documentation can be found [here](https://filipedu67.github.io/projet-master/).
 The documentation is generated using Doxygen on `gh-pages` branch and is deployed automatically.
 
 # Installation
