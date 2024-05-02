@@ -1,3 +1,7 @@
+"""
+This module contains functions to analyse the dataset.
+"""
+
 import seaborn as sns
 import matplotlib.pyplot as plt
 import plotly.express as px
@@ -7,6 +11,11 @@ from data import COLUMN_TO_PREDICT
 
 
 def analyse(df: pandas.DataFrame) -> None:
+    """
+    Analyse the given dataset.
+    :param df:  pandas DataFrame containing the dataset
+    :return:    None
+    """
     # 1. Data Overview
     print(df.info())
     print(df.describe())
@@ -49,10 +58,12 @@ def analyse(df: pandas.DataFrame) -> None:
     plt.show()
 
     # Normalize the price for color mapping
-    price_normalized = (df[COLUMN_TO_PREDICT] - df[COLUMN_TO_PREDICT].min()) / (df[COLUMN_TO_PREDICT].max() - df[COLUMN_TO_PREDICT].min())
+    price_normalized = (df[COLUMN_TO_PREDICT] - df[COLUMN_TO_PREDICT].min()) / (
+                df[COLUMN_TO_PREDICT].max() - df[COLUMN_TO_PREDICT].min())
 
     plt.figure(figsize=(10, 6))
-    plt.scatter(df['location.lon'], df['location.lat'], alpha=0.6, c=price_normalized, cmap='viridis', s=df[COLUMN_TO_PREDICT] / 10000)
+    plt.scatter(df['location.lon'], df['location.lat'], alpha=0.6, c=price_normalized, cmap='viridis',
+                s=df[COLUMN_TO_PREDICT] / 10000)
     plt.colorbar(label=COLUMN_TO_PREDICT)
     plt.xlabel('Longitude')
     plt.ylabel('Latitude')
@@ -64,7 +75,16 @@ def analyse(df: pandas.DataFrame) -> None:
     show_scatter_mapbox(df, 'location.lat', 'location.lon', COLUMN_TO_PREDICT)
 
 
-def show_scatter_mapbox(df: pandas.DataFrame, lat_col='location.lat', lon_col='location.lon', color_col='price') -> None:
+def show_scatter_mapbox(df: pandas.DataFrame, lat_col='location.lat', lon_col='location.lon',
+                        color_col='price') -> None:
+    """
+    Show a scatter plot on a map using Plotly.
+    :param df:          pandas DataFrame containing the data
+    :param lat_col:     Name of the column containing the latitude values
+    :param lon_col:     Name of the column containing the longitude values
+    :param color_col:   Name of the column to use for color mapping
+    :return:            None
+    """
     fig = px.scatter_mapbox(df, lat=lat_col, lon=lon_col, color=color_col, size=color_col,
                             color_continuous_scale=px.colors.cyclical.IceFire, size_max=15, zoom=10,
                             mapbox_style="carto-positron")
@@ -73,6 +93,11 @@ def show_scatter_mapbox(df: pandas.DataFrame, lat_col='location.lat', lon_col='l
 
 
 def analyse_v2(df: pandas.DataFrame) -> None:
+    """
+    Analyse the given dataset.
+    :param df:  pandas DataFrame containing the dataset
+    :return:    None
+    """
     # 1. Data Overview
     print(df.info())
     print(df.describe())

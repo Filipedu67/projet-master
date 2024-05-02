@@ -1,3 +1,7 @@
+"""
+This module contains the function to predict the house price using the trained model.
+"""
+
 import pandas as pd
 
 

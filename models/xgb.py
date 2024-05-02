@@ -1,3 +1,7 @@
+"""
+This module contains the code to train an XGBoost model.
+"""
+
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from sklearn.model_selection import train_test_split, KFold, GridSearchCV
 import xgboost as xgb
@@ -6,6 +10,7 @@ import numpy as np
 
 from models.custom_methods import get_cv_scores, evaluate_model
 from preprocess.preprocess import COLUMN_TO_PREDICT
+
 
 def xgb_train_model(data: pd.DataFrame):
     """

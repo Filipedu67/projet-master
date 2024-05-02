@@ -1,9 +1,21 @@
+"""
+This script reads a JSON or CSV file and reduces the number of elements to a specified count.
+"""
+
 import sys
 import json
 import csv
 import os
 
+
 def reduce_file(element_count, input_file_path, output_file_name):
+    """
+    Reduce the number of elements in a JSON or CSV file to the specified count.
+    :param element_count:       Number of elements to keep
+    :param input_file_path:     Path to the input file
+    :param output_file_name:    Name of the output file
+    :return:                    None
+    """
     try:
         file_extension = os.path.splitext(input_file_path)[1]
 
@@ -45,6 +57,7 @@ def reduce_file(element_count, input_file_path, output_file_name):
         print(f"The file {input_file_path} is not a valid JSON file.")
     except Exception as e:
         print(f"An error occurred: {e}")
+
 
 if __name__ == "__main__":
     if len(sys.argv) != 4:

@@ -1,5 +1,7 @@
-from load_data import load_json_data
-import math
+"""
+This module contains functions to train a Neural Network model on the given dataset.
+"""
+
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
@@ -10,6 +12,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 
 from preprocess.preprocess import COLUMN_TO_PREDICT
+
 
 def nn_train_model(data: pd.DataFrame):
     """
@@ -30,7 +33,6 @@ def nn_train_model(data: pd.DataFrame):
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-
     # Création du modèle séquentiel
     model = Sequential()
 
@@ -45,7 +47,6 @@ def nn_train_model(data: pd.DataFrame):
     model.add(Dense(units=64, activation='selu'))
     model.add(Dense(units=32, activation='selu'))
     model.add(Dense(units=1, activation='linear'))
-
 
     # Compilation du modèle
     model.compile(optimizer='adam', loss='mean_squared_error')
@@ -70,8 +71,8 @@ def nn_train_model(data: pd.DataFrame):
     rmse = np.sqrt(mse)
     mae = mean_absolute_error(y_test_no_nan, y_pred_no_nan)
     r2 = r2_score(y_test_no_nan, y_pred_no_nan)
-    
-    #print(f"Score (R²): {model.score(X_test, y_test)}")
+
+    # print(f"Score (R²): {model.score(X_test, y_test)}")
     print(f"Mean Absolute Error (MAE): {mae}")
     print(f"Mean Squared Error (MSE): {mse}")
     print(f"Root Mean Squared Error (RMSE): {rmse}")

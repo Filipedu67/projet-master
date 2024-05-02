@@ -1,3 +1,6 @@
+"""
+This module contains functions to load data from different file formats into a pandas DataFrame.
+"""
 import json
 
 import pandas

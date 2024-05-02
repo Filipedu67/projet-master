@@ -1,3 +1,7 @@
+"""
+This module contains functions to train and evaluate a Random Forest Regressor model.
+"""
+
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from sklearn.model_selection import train_test_split, KFold
@@ -6,6 +10,7 @@ import numpy as np
 
 from models.custom_methods import get_cv_scores, evaluate_model
 from preprocess.preprocess import COLUMN_TO_PREDICT
+
 
 def rf_train_model(data: pd.DataFrame):
     """

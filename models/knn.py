@@ -1,3 +1,7 @@
+"""
+This module contains custom methods for evaluating models.
+"""
+
 import pandas as pd
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from sklearn.model_selection import train_test_split, KFold
@@ -8,7 +12,14 @@ import numpy as np
 from models.custom_methods import get_cv_scores, evaluate_model
 from preprocess.preprocess import COLUMN_TO_PREDICT
 
+
 def knn_train_model(data: pd.DataFrame, k=10):
+    """
+    Train a K-Nearest Neighbors model on the given dataset.
+    :param data:    pandas DataFrame containing the training data
+    :param k:       Number of neighbors to consider
+    :return:        Trained model
+    """
     label_encoder = LabelEncoder()
 
     for column in data.columns:
@@ -16,7 +27,7 @@ def knn_train_model(data: pd.DataFrame, k=10):
             data[column] = label_encoder.fit_transform(data[column])
 
     X = data.drop(COLUMN_TO_PREDICT, axis=1)
-    y = data[COLUMN_TO_PREDICT].apply(lambda x: 10000 * round(x/10000))
+    y = data[COLUMN_TO_PREDICT].apply(lambda x: 10000 * round(x / 10000))
     print(y)
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
@@ -79,6 +90,7 @@ def knn_print_model_with_kfold(data: pd.DataFrame, n_splits=30, k=5):
     print(f"Mean MSE: {np.mean(mse_scores)}")
     print(f"Mean RMSE: {np.mean(rmse_scores)}")
     print(f"Mean R²: {np.mean(r2_scores)}")
+
 
 def knn_predict_price(model, input_attributes):
     """

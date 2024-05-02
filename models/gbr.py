@@ -1,3 +1,7 @@
+"""
+This module contains the functions to train and evaluate a Gradient Boosting Regressor model on the given dataset.
+"""
+
 import pandas as pd
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from sklearn.model_selection import train_test_split, GridSearchCV

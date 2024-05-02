@@ -1,3 +1,7 @@
+"""
+This file contains the configuration for the data processing.
+"""
+
 supported_versions = ['1', '2']
 
 # data version to use
@@ -39,7 +43,8 @@ COLUMNS_TO_KEEP = ['price', 'elevator', 'location.lat', 'location.lon', 'surface
 #                       'Nombre de lots',
 #                       'Type local', 'Code type local', 'Surface reelle bati',
 #                       'Nombre pieces principales',
-#                       'Surface terrain', 'No disposition', 'Nature mutation', 'Prefixe de section', 'Section', 'No plan',
+#                       'Surface terrain', 'No disposition', 'Nature mutation',
+#                       'Prefixe de section', 'Section', 'No plan',
 #                       'Nature culture', 'Nature culture speciale']
 # Identifiant local
 
@@ -57,12 +62,12 @@ COLUMNS_TO_KEEP_V3 = ['valeur_fonciere',
 PRICE_THRESHOLD = [50000, 400000]
 
 # Attention, enabling this option will increase the training time
-ADD_METRO_STATION = False
+ADD_METRO_STATION = True
 
 # Attention, enabling this option will increase the training time
-ADD_IMPORTANT_PLACES = False
+ADD_IMPORTANT_PLACES = True
 
-ADD_RANDOM_NUMBER = True
+ADD_RANDOM_NUMBER = False
 
 ENABLE_AI_DATA_SAVE = False
 

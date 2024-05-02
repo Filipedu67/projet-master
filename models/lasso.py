@@ -1,3 +1,7 @@
+"""
+This module contains the Lasso Regression model.
+"""
+
 import pandas as pd
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from sklearn.model_selection import train_test_split, GridSearchCV
@@ -41,7 +45,8 @@ def lasso_tune_hyper_parameters(data: pd.DataFrame):
     lasso = Lasso(alpha=1, max_iter=1000)
 
     # Initialize the Grid Search model
-    grid_search = GridSearchCV(estimator=lasso, param_grid=param_grid, cv=5, scoring='neg_mean_squared_error', verbose=1,
+    grid_search = GridSearchCV(estimator=lasso, param_grid=param_grid, cv=5, scoring='neg_mean_squared_error',
+                               verbose=1,
                                n_jobs=-1)
 
     # Assuming X_train and y_train are your features and target variable

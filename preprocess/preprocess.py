@@ -1,3 +1,7 @@
+"""
+This module contains the code to preprocess the data.
+"""
+
 import pandas
 import pandas as pd
 import numpy as np
@@ -507,29 +511,6 @@ def get_extra_attributes(input_attributes, city):
         print('important place not found')
 
     return input_attributes
-
-
-# def add_distance_features(df: pd.DataFrame, city: str):
-#     """
-#     Add distance features to the DataFrame.
-#     :param df: pandas DataFrame containing the data.
-#     :param city: Name of the city.
-#     :return: pandas DataFrame with distance features added.
-#     """
-#     # Coordinates for important places in Paris
-#     important_places = get_important_places(city)
-#
-#     if important_places is not None:
-#         # Iterate over each important place
-#         for place, (lat, lon) in important_places.items():
-#             # Calculate the distance from the place to each property and create a new column for it
-#             df[f'distance.{place}'] = (df
-#                                        .apply(lambda row: haversine(lon, lat, row['location.lon'], row['location.lat']),
-#                                               axis=1))
-#     else:
-#         print('no important places found')
-#
-#     return df
 
 
 def add_distance_features(df: pd.DataFrame, city: str, long_row_name='longitude', lat_row_name='latitude'):

@@ -12,7 +12,7 @@ A project to estimate house prices using AI models. This project is part of the 
 
 ## Requirements
 
-- Python 3.9
+- Python 3.12+
 - pip
 
 ## Installation
@@ -25,7 +25,10 @@ pip install -r requirements.txt
 
 # Usage
 
-To use the project, you need to run the main.py file.
+Checkout the `data.py` file to change the options of the application. (Version, should add extra features to the model,
+etc.)
+
+To use the project, you need to run the `main.py` file.
 
 ```bash
 python3 main.py <city_name> [-a] [-t <model_name>] [-p <path_to_json_file>] [-c <n_splits>] [-o]
@@ -49,6 +52,8 @@ Supported cities are
     'toulouse'
 ]
 ``
+
+Note that the data for the given city must exist in the `data` folder.
 
 
 -a is an optional argument to use when you want the application to show the analysis of the data.

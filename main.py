@@ -1,3 +1,7 @@
+"""
+This is the main file to run the AI model for predicting the price of an apartment in a city.
+"""
+
 import json
 import os
 import pickle
@@ -50,6 +54,10 @@ supported_models = [
 
 
 def main():
+    """
+    Main function to run the AI model for predicting the price of an apartment in a city.
+    :return:    None
+    """
     # To get the city name from command line, use the following code
     # if not, comment it out and use the city variable above
     if len(sys.argv) < 2:
@@ -162,7 +170,6 @@ def main():
             print(f"Model not supported yet for hyperparameter tuning")
             print('#############################################' + '\n')
 
-
     # Check if the model is already trained
     filename = model_name + '.sav'
 
@@ -198,7 +205,6 @@ def main():
         print(f"Model already trained: {model_name}. Loading from file...")
         print('#############################################' + '\n')
         model = load_model_from_file(filename)
-
 
     # Use KFold Cross Validation to calculate mean, precision, etc.
     # TODO: Add more models here
@@ -238,6 +244,10 @@ def main():
 
 
 def main_v2():
+    """
+    Main function to run the AI model for predicting the price of an apartment in a city (Version 2).
+    :return:    None
+    """
     # In Version 2, The city name is not given
     if len(sys.argv) < 2:
         print(f'Usage: '
@@ -311,7 +321,7 @@ def main_v2():
     print(f"Using data file: {file_path}")
     print('#############################################' + '\n')
 
-    #TODO: Attention to the separator, check the data file
+    # TODO: Attention to the separator, check the data file
     df = load_csv_data(file_path, separator=',')
 
     print(f"Loaded data {file_path}")
@@ -402,6 +412,12 @@ def main_v2():
 
 
 def save_model_to_file(filename, clf):
+    """
+    Save the trained model to a file.
+    :param filename:    Name of the file to save the model to
+    :param clf:         Trained model
+    :return:            None
+    """
     # create tmp_ai folder if it doesn't exist in the current directory
     if not os.path.exists('tmp_ai'):
         os.makedirs('tmp_ai')
@@ -412,6 +428,11 @@ def save_model_to_file(filename, clf):
 
 
 def load_model_from_file(filename):
+    """
+    Load the trained model from a file.
+    :param filename:    Name of the file to load the model from
+    :return:            Trained model
+    """
     # create tmp_ai folder if it doesn't exist in the current directory
     if not os.path.exists('tmp_ai'):
         os.makedirs('tmp_ai')
@@ -420,6 +441,7 @@ def load_model_from_file(filename):
     with open(f'tmp_ai/{filename}', 'rb') as f:
         clf = pickle.load(f)
         return clf
+
 
 if __name__ == "__main__":
     if VERSION == 1:

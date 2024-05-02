@@ -1,3 +1,7 @@
+"""
+This is the main file for the API. It will be used to serve the model and make predictions.
+"""
+
 from flask import Flask, request, jsonify
 
 from load_data import load_json_data
@@ -23,6 +27,10 @@ app = Flask(__name__)
 
 @app.route('/predict', methods=['POST'])
 def predict():
+    """
+    Predict the price of a house based on the input data.
+    :return:    JSON object with the predicted price
+    """
     # Extract JSON data from the request
     data = request.json
 
