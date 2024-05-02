@@ -52,8 +52,10 @@ Supported cities are
     'toulouse'
 ]
 ``
-
-Note that the data for the given city must exist in the `data` folder.
+The recommended city for tests and debug is `lille` as it has the best dataset.
+Note that the data for the given city must exist in the `data` folder. For the first version the
+data file name is `data-<city_name>.json` and for the second version the data file name is 
+`valuersfoncieres-<city_name>.csv`.
 
 
 -a is an optional argument to use when you want the application to show the analysis of the data.
@@ -64,7 +66,12 @@ Note that the data for the given city must exist in the `data` folder.
 ``
 [
     'gbr',
-    'random_forest
+    'random_forest,
+    'lasso',
+    'knn',
+    'nn',
+    'voting_regressor',
+    'xgb',
 ]
 ``
 

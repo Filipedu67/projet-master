@@ -251,8 +251,15 @@ def main_v2():
     # In Version 2, The city name is not given
     if len(sys.argv) < 2:
         print(f'Usage: '
-              f'python3 {sys.argv[0]} [-t <model_name>]')
-        print(f'Example: python3 {sys.argv[0]} -a -t gbr')
+              f'python3 {sys.argv[0]} <city_name> [-a] [-t <model_name>] [-p <path_to_json_file>] [-c <n_splits>] [-o]')
+        print(f'Example: python3 {sys.argv[0]} paris -a -t gbr -p prediction/prediction_data.json')
+        sys.exit(1)
+
+    city = sys.argv[1]
+
+    # check if the given city is supported
+    if not city in SUPPORTED_CITIES:
+        print(f"City not supported, please use one of the following: {', '.join(SUPPORTED_CITIES)}")
         sys.exit(1)
 
     # Check if argument -a is given in any part of the command line
@@ -309,7 +316,8 @@ def main_v2():
             sys.exit(1)
 
     # get the valuers foncieres data path
-    file_path = f"data/valeursfoncieres-2023_lille.csv"
+    # TODO: Check the file name
+    file_path = f"data/valeursfoncieres-2023_{city}.csv"
 
     # Check if file exists
     try:
@@ -327,7 +335,6 @@ def main_v2():
     print(f"Loaded data {file_path}")
     print('#############################################' + '\n')
 
-    city = 'lille'
     cleaned_df = preprocess_data_v2(df, city)
 
     print(f"Preprocessed data {file_path}")

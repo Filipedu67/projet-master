@@ -62,10 +62,10 @@ COLUMNS_TO_KEEP_V3 = ['valeur_fonciere',
 PRICE_THRESHOLD = [50000, 400000]
 
 # Attention, enabling this option will increase the training time
-ADD_METRO_STATION = True
+ADD_METRO_STATION = False
 
 # Attention, enabling this option will increase the training time
-ADD_IMPORTANT_PLACES = True
+ADD_IMPORTANT_PLACES = False
 
 ADD_RANDOM_NUMBER = False
 
