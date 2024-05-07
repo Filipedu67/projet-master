@@ -14,6 +14,7 @@ from data import COLUMNS_TO_KEEP
 from data import COLUMNS_TO_KEEP_V3
 from data import PRICE_THRESHOLD
 from data import ADD_METRO_STATION
+from models.custom_methods import log
 
 # Define the bounds for Paris (Ile de france) (approximate values)
 PARIS_LAT_MIN = 48.851981
@@ -134,7 +135,7 @@ def preprocess_data(df: pandas.DataFrame, city: str) -> pandas.DataFrame:
         lat_max = TOUL_LAT_MAX
         lon_max = TOUL_LON_MAX
     else:
-        print("Invalid city")
+        log("Invalid city")
         return None
 
     # Starting data clean up
@@ -181,8 +182,8 @@ def limit_price(df: pandas.DataFrame, threshold: list) -> pandas.DataFrame:
     :return: pandas DataFrame with price limited to the given threshold.
     """
 
-    print(f"Limiting the price of the properties to the range {threshold[0]} - {threshold[1]}")
-    print("#####################################################")
+    log(f"Limiting the price of the properties to the range {threshold[0]} - {threshold[1]}")
+    log("#####################################################")
 
     # Limit the price of the properties to the given threshold
     df = df[(df[COLUMN_TO_PREDICT] >= threshold[0]) & (df[COLUMN_TO_PREDICT] <= threshold[1])]
@@ -480,7 +481,7 @@ def get_important_places(city):
             'garonneRiverfront': (43.5985, 1.4430),
         }
     else:
-        print('invalid city')
+        log('invalid city')
         return None
 
     # Combine the metro stations with the important places
@@ -508,7 +509,7 @@ def get_extra_attributes(input_attributes, city):
             distance = haversine(lon, lat, input_attributes['location.lon'], input_attributes['location.lat'])
             input_attributes[f'distance.{place}'] = distance
     else:
-        print('important place not found')
+        log('important place not found')
 
     return input_attributes
 
@@ -531,7 +532,7 @@ def add_distance_features(df: pd.DataFrame, city: str, long_row_name='longitude'
                                        .apply(lambda row: haversine(lon, lat, row[long_row_name], row[lat_row_name]),
                                               axis=1))
     else:
-        print('no important places found')
+        log('no important places found')
 
     return df
 
@@ -561,9 +562,9 @@ def print_rows_with_nulls(df: pandas.DataFrame) -> None:
     # Iterate over the DataFrame rows
     for index, row in df.iterrows():
         if row.isnull().any():
-            print(f"Row {index} with NaN values:")
-            print(row)
-            print("\n")  # Add a newline for better readability between row
+            log(f"Row {index} with NaN values:")
+            log(row)
+            log("\n")  # Add a newline for better readability between row
 
 
 def handle_missing_values_v2(df: pandas.DataFrame) -> pandas.DataFrame:
@@ -589,8 +590,8 @@ def handle_missing_values_v2(df: pandas.DataFrame) -> pandas.DataFrame:
     # Count rows after deletion to calculate the number of deleted rows
     final_row_count = len(df)
     deleted_rows = initial_row_count - final_row_count
-    print(f'Number of deleted rows due to valuer fonciere column being empty: {deleted_rows}')
-    print(f'#####################################################')
+    log(f'Number of deleted rows due to valuer fonciere column being empty: {deleted_rows}')
+    log(f'#####################################################')
 
     for column in df.columns:
         if pd.api.types.is_numeric_dtype(df[column]):

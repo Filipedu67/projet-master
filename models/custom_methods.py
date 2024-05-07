@@ -9,6 +9,7 @@ from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from sklearn.model_selection import KFold, cross_val_score
 import numpy as np
 
+all_messages = []
 
 def get_cv_scores(clf, X_test, y_test):
     """
@@ -22,9 +23,9 @@ def get_cv_scores(clf, X_test, y_test):
 
     cv_scores = cross_val_score(clf, X_test, y_test, cv=kf)
 
-    print(f"CV Scores: {cv_scores}")
-    print(f"Mean accuracy: {np.mean(cv_scores)}")
-    print(f"Standard deviation: {np.std(cv_scores)}")
+    log(f"CV Scores: {cv_scores}")
+    log(f"Mean accuracy: {np.mean(cv_scores)}")
+    log(f"Standard deviation: {np.std(cv_scores)}")
 
     return cv_scores
 
@@ -44,11 +45,11 @@ def evaluate_model(model, X_test, y_test):
     r2 = r2_score(y_test, y_pred)
 
     # Print the metrics
-    print(f"Score (R²): {model.score(X_test, y_test)}")
-    print(f"Mean Absolute Error (MAE): {mae}")
-    print(f"Mean Squared Error (MSE): {mse}")
-    print(f"Root Mean Squared Error (RMSE): {rmse}")
-    print(f"R² score: {r2}")
+    log(f"Score (R²): {model.score(X_test, y_test)}")
+    log(f"Mean Absolute Error (MAE): {mae}")
+    log(f"Mean Squared Error (MSE): {mse}")
+    log(f"Root Mean Squared Error (RMSE): {rmse}")
+    log(f"R² score: {r2}")
 
 
 def calculate_threshold_accuracy(y_true, y_pred, threshold=20000):
@@ -97,3 +98,13 @@ def plot_accuracy(cv_scores, model_name, file_name, source_language):
 
     plt.savefig(f'cv_accuracies/{file_name}_{model_name}_{source_language}.png')
     plt.show()
+
+
+def log(message):
+    """
+    Log a message.
+    :param message:     Message to log
+    :return:            None
+    """
+    all_messages.append(message)
+    print(message)

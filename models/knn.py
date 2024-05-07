@@ -9,7 +9,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import LabelEncoder
 import numpy as np
 
-from models.custom_methods import get_cv_scores, evaluate_model
+from models.custom_methods import get_cv_scores, evaluate_model, log
 from preprocess.preprocess import COLUMN_TO_PREDICT
 
 
@@ -86,10 +86,10 @@ def knn_print_model_with_kfold(data: pd.DataFrame, n_splits=30, k=5):
         r2_scores.append(r2)
 
     # Calculate and print the mean of the metrics
-    print(f"Mean MAE: {np.mean(mae_scores)}")
-    print(f"Mean MSE: {np.mean(mse_scores)}")
-    print(f"Mean RMSE: {np.mean(rmse_scores)}")
-    print(f"Mean R²: {np.mean(r2_scores)}")
+    log(f"Mean MAE: {np.mean(mae_scores)}")
+    log(f"Mean MSE: {np.mean(mse_scores)}")
+    log(f"Mean RMSE: {np.mean(rmse_scores)}")
+    log(f"Mean R²: {np.mean(r2_scores)}")
 
 
 def knn_predict_price(model, input_attributes):

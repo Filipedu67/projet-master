@@ -1,0 +1,42 @@
+Trained at: 2024-05-07 16:15:51.545242
+Version: 2
+Model name: gbr
+City: lille
+Column to predict: valeur_fonciere
+Add Metro Stations: False
+Add Important Places: False
+Add Random Number: False
+Limit Price: True
+Price Threshold: [50000, 400000]
+Columns to keep: ['valeur_fonciere', 'code_type_local', 'surface_reelle_bati', 'nombre_pieces_principales', 'surface_terrain', 'longitude', 'latitude']
+All logs:
+Using data file: data/valeursfoncieres-2023_lille.csv
+#############################################
+
+Loaded data data/valeursfoncieres-2023_lille.csv
+#############################################
+
+Number of deleted rows due to valuer fonciere column being empty: 337
+#####################################################
+Limiting the price of the properties to the range 50000 - 400000
+#####################################################
+Preprocessed data data/valeursfoncieres-2023_lille.csv
+#############################################
+
+Training model: tmp_ai/v2_gbr_lille.sav...
+CV Scores: [0.47841008 0.42550047 0.49375979 0.40340811 0.41603607 0.43002543
+ 0.40253593 0.31099285 0.46260857 0.42392617 0.41966564 0.39139451
+ 0.52294952 0.32006793 0.37218605 0.34219484 0.3738468  0.44759381
+ 0.36449429 0.4014271  0.43861096 0.41880009 0.41115042 0.4465433
+ 0.40296172 0.37275814 0.48481023 0.39836179 0.4466176  0.43907165]
+Mean accuracy: 0.415423662604799
+Standard deviation: 0.04765093501701299
+Score (R²): 0.4384152110581693
+Mean Absolute Error (MAE): 46422.413634964236
+Mean Squared Error (MSE): 3674550736.2579393
+Root Mean Squared Error (RMSE): 60618.07268676512
+R² score: 0.4384152110581693
+Trained model: gbr
+#############################################
+
+Model saved to tmp_ai/v2_gbr_lille.sav

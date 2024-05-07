@@ -8,7 +8,7 @@ import xgboost as xgb
 import pandas as pd
 import numpy as np
 
-from models.custom_methods import get_cv_scores, evaluate_model
+from models.custom_methods import get_cv_scores, evaluate_model, log
 from preprocess.preprocess import COLUMN_TO_PREDICT
 
 
@@ -63,8 +63,8 @@ def xgb_hyperparameter_tuning(data: pd.DataFrame):
                                verbose=1, n_jobs=-1)
     grid_search.fit(X, y)
 
-    print("Best Parameters:", grid_search.best_params_)
-    print("Best Score:", np.sqrt(-grid_search.best_score_))  # Convert MSE to RMSE
+    log(f"Best Parameters: {grid_search.best_params_}")
+    log(f"Best Score:{np.sqrt(-grid_search.best_score_)}")  # Convert MSE to RMSE
 
 
 def xgb_print_model_with_kfold(data: pd.DataFrame, n_splits=30):
@@ -113,7 +113,7 @@ def xgb_print_model_with_kfold(data: pd.DataFrame, n_splits=30):
         r2_scores.append(r2)
 
     # Calculate and print the mean of the metrics
-    print(f"Mean MAE: {np.mean(mae_scores)}")
-    print(f"Mean MSE: {np.mean(mse_scores)}")
-    print(f"Mean RMSE: {np.mean(rmse_scores)}")
-    print(f"Mean R²: {np.mean(r2_scores)}")
+    log(f"Mean MAE: {np.mean(mae_scores)}")
+    log(f"Mean MSE: {np.mean(mse_scores)}")
+    log(f"Mean RMSE: {np.mean(rmse_scores)}")
+    log(f"Mean R²: {np.mean(r2_scores)}")

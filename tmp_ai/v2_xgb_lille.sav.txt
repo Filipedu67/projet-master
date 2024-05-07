@@ -1,0 +1,42 @@
+Trained at: 2024-05-07 16:25:07.838956
+Version: 2
+Model name: xgb
+City: lille
+Column to predict: valeur_fonciere
+Add Metro Stations: False
+Add Important Places: False
+Add Random Number: False
+Limit Price: True
+Price Threshold: [50000, 400000]
+Columns to keep: ['valeur_fonciere', 'code_type_local', 'surface_reelle_bati', 'nombre_pieces_principales', 'surface_terrain', 'longitude', 'latitude']
+All logs:
+Using data file: data/valeursfoncieres-2023_lille.csv
+#############################################
+
+Loaded data data/valeursfoncieres-2023_lille.csv
+#############################################
+
+Number of deleted rows due to valuer fonciere column being empty: 337
+#####################################################
+Limiting the price of the properties to the range 50000 - 400000
+#####################################################
+Preprocessed data data/valeursfoncieres-2023_lille.csv
+#############################################
+
+Training model: tmp_ai/v2_xgb_lille.sav...
+CV Scores: [0.30363344 0.1619774  0.22488044 0.22970373 0.21891281 0.21479723
+ 0.21383019 0.2760476  0.24136081 0.30839554 0.23231788 0.16865098
+ 0.26457095 0.28944561 0.13869292 0.2344941  0.2396307  0.20928189
+ 0.18385325 0.22332035 0.27243799 0.26027656 0.26727845 0.20114404
+ 0.23704908 0.31263966 0.26750677 0.18008645 0.18453641 0.18528374]
+Mean accuracy: 0.23153456646170748
+Standard deviation: 0.04410228769367414
+Score (R²): 0.24955437943305325
+Mean Absolute Error (MAE): 55501.567305557146
+Mean Squared Error (MSE): 4931728072.551265
+Root Mean Squared Error (RMSE): 70226.26341014638
+R² score: 0.24955437943305325
+Trained model: xgb
+#############################################
+
+Model saved to tmp_ai/v2_xgb_lille.sav
