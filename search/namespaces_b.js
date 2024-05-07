@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['xgb_87',['xgb',['../namespacexgb.html',1,'']]]
+  ['xgb_90',['xgb',['../namespacexgb.html',1,'']]]
 ];

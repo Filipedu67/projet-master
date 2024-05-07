@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['knn_76',['knn',['../namespaceknn.html',1,'']]]
+  ['knn_79',['knn',['../namespaceknn.html',1,'']]]
 ];

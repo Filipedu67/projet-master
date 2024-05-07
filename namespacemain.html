@@ -79,8 +79,12 @@ Functions</h2></td></tr>
 <tr class="separator:a873ec130765df8ea04d82c20953f92cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1abaabf1bbe770b1d5ba666cc60a8532"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemain.html#a1abaabf1bbe770b1d5ba666cc60a8532">save_model_to_file</a> (filename, clf)</td></tr>
 <tr class="separator:a1abaabf1bbe770b1d5ba666cc60a8532"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab76d02ff4dffa0c46c01baf672fbd2e3"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemain.html#ab76d02ff4dffa0c46c01baf672fbd2e3">save_model_info_to_file</a> (filename, model_name, city)</td></tr>
+<tr class="separator:ab76d02ff4dffa0c46c01baf672fbd2e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6dec8119f62745327a14d317d10883d6"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemain.html#a6dec8119f62745327a14d317d10883d6">load_model_from_file</a> (filename)</td></tr>
 <tr class="separator:a6dec8119f62745327a14d317d10883d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee9244357e438d34819e2c103ff535e1"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemain.html#aee9244357e438d34819e2c103ff535e1">get_ai_file_name</a> (model_name, city)</td></tr>
+<tr class="separator:aee9244357e438d34819e2c103ff535e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -90,6 +94,38 @@ Variables</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><pre class="fragment">This is the main file to run the AI model for predicting the price of an apartment in a city.
 </pre> </div><h2 class="groupheader">Function Documentation</h2>
+<a id="aee9244357e438d34819e2c103ff535e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee9244357e438d34819e2c103ff535e1">&#9670;&nbsp;</a></span>get_ai_file_name()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> str main.get_ai_file_name </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>model_name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>city</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Get the file name for the trained model.
+:param model_name:  Name of the model
+:param city:        Name of the city
+:return:            File name
+</pre> 
+</div>
+</div>
 <a id="a6dec8119f62745327a14d317d10883d6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6dec8119f62745327a14d317d10883d6">&#9670;&nbsp;</a></span>load_model_from_file()</h2>
 
@@ -146,6 +182,45 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <pre class="fragment">Main function to run the AI model for predicting the price of an apartment in a city (Version 2).
 :return:    None
+</pre> 
+</div>
+</div>
+<a id="ab76d02ff4dffa0c46c01baf672fbd2e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab76d02ff4dffa0c46c01baf672fbd2e3">&#9670;&nbsp;</a></span>save_model_info_to_file()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def main.save_model_info_to_file </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>filename</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>model_name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>city</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Save the information of the trained model to a file.
+:param filename:    Name of the file to save the model to
+:param model_name:  Name of the model
+:param city:        Name of the city
+:return:            None
 </pre> 
 </div>
 </div>
