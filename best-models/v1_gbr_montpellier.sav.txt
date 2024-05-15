@@ -1,0 +1,37 @@
+Trained at: 2024-05-15 21:04:45.743684
+Version: 1
+Model name: gbr
+City: montpellier
+Column to predict: price
+Add Metro Stations: False
+Add Important Places: False
+Add Random Number: False
+Limit Price: True
+Price Threshold: [50000, 400000]
+Columns to keep: ['price', 'elevator', 'location.lat', 'location.lon', 'surface', 'bedroom', 'floor', 'furnished', 'room', 'propertyType', 'city.department.code']
+All logs:
+Using data file: data/data-montpellier.json
+#############################################
+
+Loaded data for montpellier
+#############################################
+
+Limiting the price of the properties to the range 50000 - 400000
+#####################################################
+Preprocessed data for montpellier
+#############################################
+
+Training model: tmp_ai/v1_gbr_montpellier.sav...
+CV Scores: [ 0.3796983   0.69775269  0.53888997  0.67860099  0.34892259 -0.07100995
+  0.89960882  0.60315886  0.59698441  0.7641834  -0.06908444  0.25719125
+  0.70745575  0.78240783  0.82261756  0.93915433  0.74969338  0.82573765
+ -0.16696664  0.87905474  0.34408793  0.64162979  0.64520984  0.49997199
+  0.74983384  0.8311863   0.54807479  0.28585697 -0.59081685  0.35845532]
+Mean accuracy: 0.5159180479535025
+Standard deviation: 0.3527489448604355
+Score (R²): 0.6310036679854024
+Mean Absolute Error (MAE): 40776.074089495894
+Mean Squared Error (MSE): 2822316013.4986854
+Root Mean Squared Error (RMSE): 53125.47424257675
+R² score: 0.6310036679854024
+Model saved to tmp_ai/v1_gbr_montpellier.sav

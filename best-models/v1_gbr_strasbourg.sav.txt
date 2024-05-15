@@ -1,0 +1,37 @@
+Trained at: 2024-05-15 22:20:35.164606
+Version: 1
+Model name: gbr
+City: strasbourg
+Column to predict: price
+Add Metro Stations: False
+Add Important Places: False
+Add Random Number: False
+Limit Price: True
+Price Threshold: [50000, 400000]
+Columns to keep: ['price', 'elevator', 'location.lat', 'location.lon', 'surface', 'bedroom', 'floor', 'furnished', 'room', 'propertyType', 'city.department.code']
+All logs:
+Using data file: data/data-strasbourg.json
+#############################################
+
+Loaded data for strasbourg
+#############################################
+
+Limiting the price of the properties to the range 50000 - 400000
+#####################################################
+Preprocessed data for strasbourg
+#############################################
+
+Training model: tmp_ai/v1_gbr_strasbourg.sav...
+CV Scores: [0.71075942 0.6373847  0.25913281 0.69932504 0.51912614 0.18735745
+ 0.75075946 0.83746514 0.02393986 0.54390515 0.75040805 0.7083569
+ 0.79866339 0.54018756 0.67941095 0.39995824 0.59267398 0.52050137
+ 0.0373113  0.74867372 0.76741645 0.69873153 0.5721949  0.66926883
+ 0.62870542 0.57606085 0.59911811 0.44969836 0.6640664  0.63664961]
+Mean accuracy: 0.5735737025148366
+Standard deviation: 0.20423076985018798
+Score (R²): 0.6897501445083569
+Mean Absolute Error (MAE): 36253.93126245425
+Mean Squared Error (MSE): 2326289869.498037
+Root Mean Squared Error (RMSE): 48231.62727399975
+R² score: 0.6897501445083569
+Model saved to tmp_ai/v1_gbr_strasbourg.sav

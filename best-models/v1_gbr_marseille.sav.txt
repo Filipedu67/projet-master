@@ -1,0 +1,37 @@
+Trained at: 2024-05-15 21:06:33.335522
+Version: 1
+Model name: gbr
+City: marseille
+Column to predict: price
+Add Metro Stations: False
+Add Important Places: False
+Add Random Number: False
+Limit Price: True
+Price Threshold: [50000, 400000]
+Columns to keep: ['price', 'elevator', 'location.lat', 'location.lon', 'surface', 'bedroom', 'floor', 'furnished', 'room', 'propertyType', 'city.department.code']
+All logs:
+Using data file: data/data-marseille.json
+#############################################
+
+Loaded data for marseille
+#############################################
+
+Limiting the price of the properties to the range 50000 - 400000
+#####################################################
+Preprocessed data for marseille
+#############################################
+
+Training model: tmp_ai/v1_gbr_marseille.sav...
+CV Scores: [0.74702123 0.38851579 0.77608194 0.68734375 0.60348498 0.84919253
+ 0.46953829 0.49370181 0.1949172  0.76008516 0.63776428 0.51855627
+ 0.51240889 0.38884168 0.72240538 0.00304951 0.69814731 0.44045866
+ 0.85848879 0.69990586 0.59344725 0.49432345 0.63491888 0.80036875
+ 0.64062277 0.64431616 0.27389466 0.40334566 0.08179894 0.51388148]
+Mean accuracy: 0.5510275767099339
+Standard deviation: 0.21086075340324806
+Score (R²): 0.686311811431294
+Mean Absolute Error (MAE): 40572.92226402611
+Mean Squared Error (MSE): 2763214546.5888333
+Root Mean Squared Error (RMSE): 52566.287167621354
+R² score: 0.686311811431294
+Model saved to tmp_ai/v1_gbr_marseille.sav

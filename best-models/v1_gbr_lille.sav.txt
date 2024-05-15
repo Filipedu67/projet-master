@@ -1,0 +1,37 @@
+Trained at: 2024-05-15 22:18:27.562727
+Version: 1
+Model name: gbr
+City: lille
+Column to predict: price
+Add Metro Stations: False
+Add Important Places: False
+Add Random Number: False
+Limit Price: True
+Price Threshold: [50000, 400000]
+Columns to keep: ['price', 'elevator', 'location.lat', 'location.lon', 'surface', 'bedroom', 'floor', 'furnished', 'room', 'propertyType', 'city.department.code']
+All logs:
+Using data file: data/data-lille.json
+#############################################
+
+Loaded data for lille
+#############################################
+
+Limiting the price of the properties to the range 50000 - 400000
+#####################################################
+Preprocessed data for lille
+#############################################
+
+Training model: tmp_ai/v1_gbr_lille.sav...
+CV Scores: [0.4330584  0.71821391 0.49940827 0.92524904 0.72949894 0.70987285
+ 0.75798496 0.50094106 0.60273109 0.47626545 0.83489175 0.34852368
+ 0.6950593  0.57181228 0.61037589 0.58212662 0.4387462  0.39794966
+ 0.73842455 0.65424877 0.7202364  0.66901169 0.54405558 0.66183844
+ 0.38855452 0.74705755 0.54616029 0.63973729 0.73006753 0.2800976 ]
+Mean accuracy: 0.6050733191708907
+Standard deviation: 0.14941598911496354
+Score (R²): 0.6428313778248178
+Mean Absolute Error (MAE): 35634.00763292215
+Mean Squared Error (MSE): 2340011578.1024275
+Root Mean Squared Error (RMSE): 48373.6661635484
+R² score: 0.6428313778248178
+Model saved to tmp_ai/v1_gbr_lille.sav

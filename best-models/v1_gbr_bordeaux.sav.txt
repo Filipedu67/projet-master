@@ -1,0 +1,37 @@
+Trained at: 2024-05-15 22:30:06.585066
+Version: 1
+Model name: gbr
+City: bordeaux
+Column to predict: price
+Add Metro Stations: False
+Add Important Places: False
+Add Random Number: False
+Limit Price: True
+Price Threshold: [50000, 400000]
+Columns to keep: ['price', 'elevator', 'location.lat', 'location.lon', 'surface', 'bedroom', 'floor', 'furnished', 'room', 'propertyType', 'city.department.code']
+All logs:
+Using data file: data/data-bordeaux.json
+#############################################
+
+Loaded data for bordeaux
+#############################################
+
+Limiting the price of the properties to the range 50000 - 400000
+#####################################################
+Preprocessed data for bordeaux
+#############################################
+
+Training model: tmp_ai/v1_gbr_bordeaux.sav...
+CV Scores: [0.66914175 0.8834748  0.73639288 0.26572983 0.46536954 0.51073879
+ 0.61460143 0.8005634  0.68530076 0.62335848 0.81126256 0.76800224
+ 0.64248343 0.78534052 0.74536926 0.53286752 0.77856088 0.70219292
+ 0.58499594 0.67525867 0.5570999  0.50718626 0.0395493  0.73299157
+ 0.75136114 0.40841032 0.84710465 0.85062043 0.44306416 0.53000879]
+Mean accuracy: 0.63161340457746
+Standard deviation: 0.18238966997583822
+Score (R²): 0.7377811789788464
+Mean Absolute Error (MAE): 34001.572100684556
+Mean Squared Error (MSE): 2044462182.5338109
+Root Mean Squared Error (RMSE): 45215.729370804256
+R² score: 0.7377811789788464
+Model saved to tmp_ai/v1_gbr_bordeaux.sav

@@ -1,0 +1,37 @@
+Trained at: 2024-05-15 21:28:25.111753
+Version: 1
+Model name: gbr
+City: paris
+Column to predict: price
+Add Metro Stations: False
+Add Important Places: False
+Add Random Number: False
+Limit Price: True
+Price Threshold: [50000, 400000]
+Columns to keep: ['price', 'elevator', 'location.lat', 'location.lon', 'surface', 'bedroom', 'floor', 'furnished', 'room', 'propertyType', 'city.department.code']
+All logs:
+Using data file: data/data-paris.json
+#############################################
+
+Loaded data for paris
+#############################################
+
+Limiting the price of the properties to the range 50000 - 400000
+#####################################################
+Preprocessed data for paris
+#############################################
+
+Training model: tmp_ai/v1_gbr_paris.sav...
+CV Scores: [ 0.78259932  0.89017589  0.64278844  0.64297139  0.75011166  0.87950062
+  0.9080743   0.75583505 -2.32717681  0.67471113  0.79075491  0.81746646
+  0.92597725  0.19118361  0.74491113  0.96227748  0.61505255  0.83024612
+  0.48316983 -0.37836544  0.48700918 -0.67322133  0.89443814  0.92364315
+  0.69022418  0.30154354  0.89044255  0.93752374  0.51476363  0.62665018]
+Mean accuracy: 0.5391760610481832
+Standard deviation: 0.6446239873595144
+Score (R²): 0.6305524502764599
+Mean Absolute Error (MAE): 34048.96373831455
+Mean Squared Error (MSE): 3161292633.8134127
+Root Mean Squared Error (RMSE): 56225.373576468235
+R² score: 0.6305524502764599
+Model saved to tmp_ai/v1_gbr_paris.sav

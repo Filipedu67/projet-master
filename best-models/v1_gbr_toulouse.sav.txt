@@ -1,0 +1,37 @@
+Trained at: 2024-05-15 21:04:05.287405
+Version: 1
+Model name: gbr
+City: toulouse
+Column to predict: price
+Add Metro Stations: False
+Add Important Places: False
+Add Random Number: False
+Limit Price: True
+Price Threshold: [50000, 400000]
+Columns to keep: ['price', 'elevator', 'location.lat', 'location.lon', 'surface', 'bedroom', 'floor', 'furnished', 'room', 'propertyType', 'city.department.code']
+All logs:
+Using data file: data/data-toulouse.json
+#############################################
+
+Loaded data for toulouse
+#############################################
+
+Limiting the price of the properties to the range 50000 - 400000
+#####################################################
+Preprocessed data for toulouse
+#############################################
+
+Training model: tmp_ai/v1_gbr_toulouse.sav...
+CV Scores: [ 0.74516061  0.58368448  0.86953981  0.65052545 -0.37848616  0.71294924
+  0.52063608  0.72461773  0.71661491  0.66987577  0.58873165  0.41160878
+ -0.12065274  0.60811916  0.60009168  0.67320002  0.45488544  0.39103936
+  0.70340873  0.89160524  0.82689774  0.48307578  0.76219405  0.1444911
+  0.73222619  0.65310633 -0.41361047  0.82583983  0.21778414  0.64380458]
+Mean accuracy: 0.5297654843181221
+Standard deviation: 0.327900472780662
+Score (R²): 0.6360962011290101
+Mean Absolute Error (MAE): 42185.155103514844
+Mean Squared Error (MSE): 3029218752.1421204
+Root Mean Squared Error (RMSE): 55038.338929714446
+R² score: 0.6360962011290101
+Model saved to tmp_ai/v1_gbr_toulouse.sav

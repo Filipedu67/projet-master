@@ -1,0 +1,37 @@
+Trained at: 2024-05-15 22:21:43.759849
+Version: 1
+Model name: gbr
+City: lyon
+Column to predict: price
+Add Metro Stations: False
+Add Important Places: False
+Add Random Number: False
+Limit Price: True
+Price Threshold: [50000, 400000]
+Columns to keep: ['price', 'elevator', 'location.lat', 'location.lon', 'surface', 'bedroom', 'floor', 'furnished', 'room', 'propertyType', 'city.department.code']
+All logs:
+Using data file: data/data-lyon.json
+#############################################
+
+Loaded data for lyon
+#############################################
+
+Limiting the price of the properties to the range 50000 - 400000
+#####################################################
+Preprocessed data for lyon
+#############################################
+
+Training model: tmp_ai/v1_gbr_lyon.sav...
+CV Scores: [0.45128463 0.71090518 0.55199344 0.52304693 0.70580737 0.78327692
+ 0.59436609 0.52273244 0.12737251 0.63078232 0.56318093 0.55593135
+ 0.54480999 0.77495267 0.69958733 0.65185689 0.39380824 0.82049948
+ 0.64926795 0.65534732 0.84605295 0.00392176 0.26853884 0.53233449
+ 0.71986628 0.59826015 0.61034473 0.26288976 0.53244952 0.70228102]
+Mean accuracy: 0.5662583158891136
+Standard deviation: 0.19176602805908005
+Score (R²): 0.6985210615784959
+Mean Absolute Error (MAE): 36096.95853997004
+Mean Squared Error (MSE): 2157640086.8867307
+Root Mean Squared Error (RMSE): 46450.40459335883
+R² score: 0.6985210615784959
+Model saved to tmp_ai/v1_gbr_lyon.sav

@@ -7,7 +7,7 @@ supported_versions = ['1', '2']
 # data version to use
 # 1: original data
 # 2: valeurs foncieres data
-VERSION = 2
+VERSION = 1
 
 if VERSION == 1:
     COLUMN_TO_PREDICT = 'price'

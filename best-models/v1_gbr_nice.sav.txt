@@ -1,0 +1,37 @@
+Trained at: 2024-05-15 21:35:53.895749
+Version: 1
+Model name: gbr
+City: nice
+Column to predict: price
+Add Metro Stations: False
+Add Important Places: False
+Add Random Number: False
+Limit Price: True
+Price Threshold: [50000, 400000]
+Columns to keep: ['price', 'elevator', 'location.lat', 'location.lon', 'surface', 'bedroom', 'floor', 'furnished', 'room', 'propertyType', 'city.department.code']
+All logs:
+Using data file: data/data-nice.json
+#############################################
+
+Loaded data for nice
+#############################################
+
+Limiting the price of the properties to the range 50000 - 400000
+#####################################################
+Preprocessed data for nice
+#############################################
+
+Training model: tmp_ai/v1_gbr_nice.sav...
+CV Scores: [ 0.32278954  0.8489842   0.70663204  0.50491512 -0.23152224  0.46632652
+  0.35023415  0.71579462 -0.19936522  0.29193228  0.59104435  0.65721366
+  0.2221651   0.22009143  0.2499417   0.71125343  0.75115268  0.50607794
+  0.46240567  0.74236252  0.78324728  0.70750756  0.4408412   0.44724742
+  0.49497046  0.56073142  0.57935836  0.71139565  0.72452053  0.399402  ]
+Mean accuracy: 0.49132171183333745
+Standard deviation: 0.25788147487195673
+Score (R²): 0.5922645985603054
+Mean Absolute Error (MAE): 45277.79335627177
+Mean Squared Error (MSE): 3391953554.0334325
+Root Mean Squared Error (RMSE): 58240.48037261912
+R² score: 0.5922645985603054
+Model saved to tmp_ai/v1_gbr_nice.sav
